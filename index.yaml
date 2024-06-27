@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  envoy:
+  - apiVersion: v2
+    appVersion: v0.17.0
+    created: "2024-06-27T22:50:02.738213797Z"
+    description: An open source TRISA/TRP node for use in Travel Rule information
+      transfers.
+    digest: 5e0124ddfdb6775a610a86cdc33ff30bd2b2946ad0c1a593dfbd4bbfe1162a81
+    name: envoy
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/envoy-0.1.0/envoy-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-06-27T22:50:02.738220319Z"
