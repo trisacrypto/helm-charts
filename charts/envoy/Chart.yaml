@@ -23,6 +23,10 @@ version: 0.2.0
 # It is recommended to use it with quotes.
 appVersion: "v0.17.0"
 
+dependencies:
+  - name: "regioninfo"
+    version: "1.0.0"
+
 # Project Information
 home: https://trisa.dev
 icon: https://trisa.dev/favicon.png
