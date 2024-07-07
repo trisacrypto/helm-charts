@@ -1,0 +1,27 @@
+isTestnet: false
+
+environment: "staging"
+
+trisa:
+  endpoint: api.alice.vaspbot.net:443
+  web:
+    origin: https://alice.vaspbot.net
+
+ingresses:
+  enabled: false
+  web:
+    hostname: alice.vaspbot.net
+    tls:
+      secretName: envoy-certs
+  grpc:
+    hostname: api.alice.vaspbot.net
+
+regioninfo:
+  enabled: true
+  install: true
+  info:
+    id: "213"
+    name: "us-central1"
+    country: "us-central1"
+    cloud: "GCP"
+    cluster: "testing-gke-usa-1"

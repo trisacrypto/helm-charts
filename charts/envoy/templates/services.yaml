@@ -1,0 +1,37 @@
+{{- if .Values.services.web.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "envoy.serviceName" . }}-web
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "envoy.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.services.web.type }}
+  ports:
+    - name: web
+      port: {{ .Values.services.web.port }}
+      targetPort: web
+      protocol: TCP
+  selector:
+    {{- include "envoy.selectorLabels" . | nindent 4 }}
+{{- end}}
+---
+{{ if .Values.services.grpc.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "envoy.serviceName" . }}-grpc
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "envoy.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.services.grpc.type }}
+  ports:
+    - name: grpc
+      port: {{ .Values.services.grpc.port }}
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    {{- include "envoy.selectorLabels" . | nindent 4 }}
+{{- end}}

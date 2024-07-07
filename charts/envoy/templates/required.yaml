@@ -1,0 +1,10 @@
+{{/*
+This is not a template file but rather a quick verification that the values.yaml file
+contains all required information to install an envoy node.
+*/}}
+{{- $_ := required "trisa.endpoint is a required value and must match configured ingresses" .Values.trisa.endpoint}}
+{{- $_ := required "trisa.web.origin is a required value and must match configured ingresses" .Values.trisa.web.origin}}
+{{- if .Values.ingresses.enabled -}}
+{{- $_ := required "ingresses.web.hostname is a required value and must match configured trisa.web.origin hostname" .Values.ingresses.web.hostname}}
+{{- $_ := required "ingresses.grpc.hostname is a required value and must match configured trisa.endpoint hostname" .Values.ingresses.grpc.hostname}}
+{{- end -}}
