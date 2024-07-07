@@ -1,16 +1,10 @@
 {{/*
-Expand the name of the chart.
+Determine the name of the app. By default this is release or release-testnet so that
+the user can install multiple Envoy nodes with different release names. If the user
+specifies a nameOverride it is used but suffixed with -testnet, otherwise if a
+fullnameOverride is specified, it is used without any suffix.
 */}}
 {{- define "envoy.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
-*/}}
-{{- define "envoy.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -31,14 +25,65 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Create environment definition as used by the chart labels.
+*/}}
+{{- define "envoy.trisaLabels" -}}
+{{- if .Values.isTestnet -}}
+trisa.dev/network: testnet
+trisa.dev/directory: {{ default "trisatest.net" .Values.directory }}
+{{- else -}}
+trisa.dev/network: mainnet
+trisa.dev/directory: {{ default "vaspdirectory.net" .Values.directory }}
+{{- end }}
+{{- if .Values.environment }}
+trisa.dev/environment: {{ .Values.environment }}
+{{- end }}
+{{- end }}
+
+{{/*
+Define the headless service name for the stateful set, defaults to app name
+*/}}
+{{- define "envoy.serviceName" -}}
+{{- if .Values.serviceName -}}
+{{ .Values.serviceName }}
+{{- else -}}
+{{- include "envoy.name" . }}
+{{- end }}
+{{- end }}
+
+{{/*
+Define the certificates secret name for access to the certificates
+*/}}
+{{- define "envoy.certificatesSecretName" -}}
+{{- if .Values.certificate.secretName -}}
+{{ .Values.certificate.secretName }}
+{{- else -}}
+{{- include "envoy.name" . }}-trisa-certificates
+{{- end }}
+{{- end }}
+
+{{/*
+Define the certificates name for access to the certificates mounted in the secret
+*/}}
+{{- define "envoy.certificateName" -}}
+{{- if .Values.certificate.name -}}
+{{ .Values.certificate.name }}
+{{- else -}}
+trisa-certificates.pem
+{{- end }}
+{{- end }}
+
+{{/*
 Common labels
 */}}
 {{- define "envoy.labels" -}}
 helm.sh/chart: {{ include "envoy.chart" . }}
+{{ include "envoy.trisaLabels" . }}
 {{ include "envoy.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
+app.kubernetes.io/component: node
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
@@ -48,15 +93,4 @@ Selector labels
 {{- define "envoy.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "envoy.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "envoy.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "envoy.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
 {{- end }}

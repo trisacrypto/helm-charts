@@ -1,7 +1,128 @@
-# Default values for envoy.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Default values for deploying Envoy.
+# It is expected that you'll be deploying at least two envoy nodes - one for your
+# testnet and one for your mainnet. TSPs may deploy multiple envoy nodes for each VASP
+# they are setting up a node for. These values are designed to enable this use case.
 
+# If this node is a TRISA testnet node, then it's testnet values will be updated
+isTestnet: true
+
+# Environment can be set to "staging", "development", "production", or omitted
+environment: ""
+
+# Name overrides: by default the name will be release-envoy and it is
+# recommended that the release name be the name of the VASP. If you would like to
+# override the name, you can do so below; if you would like to override the -envoy
+# suffix, then use the fullnameOverride.
+nameOverride: ""
+fullnameOverride: ""
+
+# Service name defines the domain of the headless service to connect to the pods on
+# By default the name computed for the application is used but with "." instead of "-"
+# for testnet prefixing.
+serviceName: ""
+
+# Optionally specify the name of the directory associated with the node.
+# This primarily affects the labels attached to the objects created, but may also
+# influence the directory configuration of the trisa node (unless otherwise specified)
+# Leave empty to determine the directory based on the testnet flag.
+directory: ""
+
+# Required: user must populate this value!
+# The full contents of the TRISA certificate issued to you must be added here as base64
+# encoded data. In the future this may be loaded from a secret manager, but must be
+# directly added for now. We don't recommend storing this in a values.yaml file but
+# rather setting it when installing the Envoy node via the command line.
+certificate:
+  secretName: ""
+  name: ""
+  data: ""
+
+# The following is the TRISA configuration for the Envoy node. For more about
+# configuration options, please see https://trisa.dev/envoy/configuration/index.html
+# These values are mounted into each pod as an environment variable.
+trisa:
+  maintenance: "false"
+  mode: release
+  logLevel: info
+  consoleLog: "false"
+
+  # The database url must point to a volumeMount for the node data pvc
+  databaseURL: "sqlite:////data/db/envoy.db"
+
+  # Required: user must populate this value!
+  # Endpoint must include the hostname:port as it is defined for external users to
+  # connect to this service. If ingresses are enabled, it must match the ingress route.
+  endpoint: ""
+
+  web:
+    enabled: "true"
+    apiEnabled: "true"
+    uiEnabled: "true"
+
+    # If left blank, the bindAddr will be computed based on the web service port
+    bindAddr: ""
+
+    # Required: user must populate this value!
+    # Set to the full URL of the web UI which should match the ingress route
+    origin: ""
+
+    auth:
+      # Optional: specify keys for generating JWT tokens (random ones will be generated if blank)
+      keys: ""
+
+      # If left blank, these are computed from the origin
+      audience: ""
+      issuer: ""
+      cookieDomain: ""
+
+      # Specify access token behavior for login
+      accessTokenTTL: "1h"
+      refreshTokenTTL: "2h"
+      tokenOverlap: "-15m"
+
+  node:
+    enabled: "true"
+
+    # If left blank, the bindAddr will be computed based on the grpc service port
+    bindAddr: ""
+
+    # These paths must point to locations from the envoy-certs volume mount
+    pool: ""
+    certs: ""
+
+    # The duration to store keys in the cache before requiring a new key exchange
+    keyExchangeCacheTTL: "24h"
+
+  directory:
+    insecure: "false"   # Only used for development!
+    endpoint: ""        # If left blank, this is determined by the isTestnet flag
+    membersEndpoint: "" # If left blank, this is determined by the isTestnet flag
+    syncEnabled: "true"
+    syncInterval: "6h"
+
+# Because TRISA is a globally distributed system, region deployment information is
+# useful information on the node. This information can be provided via config map or
+# manually specified in the values.yaml -- behavior is not defined for when both are
+# specified.
+regioninfo:
+  # If enabled is true, will load the region info into the environment from the
+  # specified config map
+  enabled: false
+  configMap: ""
+
+  # If install is true, the config map will be installed ujsing the specified info
+  # values. Note that if a config with the name already exists, it won't be overwritten.
+  install: false
+  info:
+    id: ""
+    name: ""
+    country: ""
+    cloud: ""
+    cluster: ""
+  annotations: {}
+
+# It is not recommended to increase the replicaCount beyond 1 at this time.
+# NOTE: this chart does not allow for autoscaling at this time.
 replicaCount: 1
 
 image:
@@ -11,97 +132,119 @@ image:
   tag: ""
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: false
-  # Automatically mount a ServiceAccount's API credentials?
-  automount: false
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
+# Define the ports to bind the envoy service(s) on. Note that this will also influence
+# the configuration of the node to bind to these ports as well so they only have to be
+# defined once in this values file rather than multiple times.
+services:
+  web:
+    enabled: true
+    port: 8000
+    type: ClusterIP
+  grpc:
+    enabled: true
+    port: 8100
+    type: ClusterIP
 
-podAnnotations: {}
-podLabels: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 80
-
-ingress:
+ingresses:
   enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  web:
+    className: "IngressRoute"
+    annotations: {}
+    hostname: ""
+    entryPoints:
+      - websecure
+    tls: {}
+      # secretName: tls-certs
+  grpc:
+    className: "IngressRouteTCP"
+    annotations: {}
+    hostname: ""
+    entryPoints:
+      - websecure
+    tls:
+      passthrough: true
 
+# Define the resources used by the container (left blank if unset)
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+#  requests:
+#    memory: "32Mi"
+#    cpu: "100m"
+#  limits:
+#    memory: "512Mi"
+#    cpu: "500m"
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
+# Define PVCs that are allocated per pod on the stateful set (e.g. envoy data)
+volumeClaimTemplates:
+  # The node data spec will be included in volume claim templates.
+  nodeData:
+    accessModes: ["ReadWriteOnce"]
+    resources:
+      requests:
+        storage: 32Gi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-# Additional volumes on the output Deployment definition.
+# Define the secrets volumes associated with the envoy node
 volumes: []
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
-# Additional volumeMounts on the output Deployment definition.
+# Mount the envoy data volume and certificates information volumes
 volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
+# Optionally specify the security context fort of the pod
+# TODO: ensure these do not conflict with the operation of Envoy
+podSecurityContext: {}
+  # runAsUser: 1000
+  # runAsGroup: 3000
+  # fsGroup: 2000
+
+# Optionally specify the security context of the container
+# TODO: ensure these do not conflict with the operation of Envoy
+securityContext: {}
+  # runAsUser: 2000
+  # runAsNonRoot: true
+  # allowPrivilegeEscalation: false
+  # readOnlyRootFilesystem: true
+  # capabilities:
+  #   drop:
+  #   - ALL
+
+# The liveness probe requires the web service to be enabled and running.
+livenessProbe:
+  httpGet:
+    path: /livez
+    port: 8000
+    httpHeaders:
+    - name: X-Kubernetes-Probe
+      value: liveness
+  initialDelaySeconds: 2
+  periodSeconds: 10
+
+# The readiness probe requires the web service to be enabled and running.
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 8000
+    httpHeaders:
+    - name: X-Kubernetes-Probe
+      value: readiness
+  initialDelaySeconds: 2
+  periodSeconds: 10
+
+# Optionally specify annotations and labels for the pods created by the stateful set spec
+podAnnotations: {}
+podLabels: {}
+
+# Optionally specify how nodes are selected to place pods on
 nodeSelector: {}
 
+# Optionally specify tolerations to ensure pods are not scheduled on inappropriate nodes
 tolerations: []
 
+# Optionally specify affinities to ensure pods and resources are together or separated
 affinity: {}
