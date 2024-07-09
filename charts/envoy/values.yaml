@@ -111,7 +111,7 @@ regioninfo:
   enabled: false
   configMap: ""
 
-  # If install is true, the config map will be installed ujsing the specified info
+  # If install is true, the config map will be installed using the specified info
   # values. Note that if a config with the name already exists, it won't be overwritten.
   install: false
   info:

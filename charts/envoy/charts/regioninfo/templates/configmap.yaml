@@ -1,6 +1,6 @@
 {{- $name := default "region-info" .Values.configMap -}}
 {{- $exists := lookup "v1" "ConfigMap" .Release.Namespace $name -}}
-{{- if and .Values.enabled (not $exists) -}}
+{{- if and .Values.install (not $exists) -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
