@@ -128,16 +128,5 @@ Volumes for the certificates secret
 volumes:
   - name: {{ include "envoy.name" . }}-certs
     secret:
-      secretName: {{ include "envoy.certificate.secret" . }}
-{{- end }}
-
-{{/*
-Define the secret name for the certificates
-*/}}
-{{- define "envoy.certificate.secret" -}}
-{{- if .Values.certificate.secretName }}
-{{- .Values.certificate.secretName }}
-{{- else }}
-{{- include "envoy.name" . }}-certs
-{{- end }}
+      secretName: {{ include "envoy.certificatesSecretName" . }}
 {{- end }}
