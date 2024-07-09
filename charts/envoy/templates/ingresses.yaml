@@ -17,6 +17,7 @@ spec:
     {{- toYaml $ingress.entryPoints | nindent 4 }}
   routes:
     - match: HostSNI(`{{ $ingress.hostname }}`)
+      kind: Rule
       services:
         - name: {{ include "envoy.serviceName" . }}-web
           namespace: {{ .Release.Namespace }}

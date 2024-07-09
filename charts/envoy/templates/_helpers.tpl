@@ -118,7 +118,7 @@ Volume mounts for the certificates secret
 */}}
 {{- define "envoy.volumeMounts.nodeData" -}}
 - name: {{ include "envoy.name" . }}-data
-  MountPath: {{ .Values.storage.nodeData.mountPath }}
+  mountPath: {{ .Values.storage.nodeData.mountPath }}
 {{- end }}
 
 {{/*
