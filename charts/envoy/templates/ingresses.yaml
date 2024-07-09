@@ -2,7 +2,7 @@
 {{- if .Values.services.web.enabled -}}
 {{- $ingress := .Values.ingresses.web }}
 apiVersion: traefik.containo.us/v1alpha1
-kind: {{ $ingress.className }}
+kind: {{ default "IngressRoute" $ingress.className }}
 metadata:
   name: {{ include "envoy.serviceName" . }}-web-ingress-route
   namespace: {{ .Release.Namespace }}
@@ -16,7 +16,7 @@ spec:
   entryPoints:
     {{- toYaml $ingress.entryPoints | nindent 4 }}
   routes:
-    - match: HostSNI(`{{ $ingress.hostname }}`)
+    - match: Host(`{{ $ingress.hostname }}`)
       kind: Rule
       services:
         - name: {{ include "envoy.serviceName" . }}-web
@@ -31,7 +31,7 @@ spec:
 {{ if .Values.services.grpc.enabled -}}
 {{- $ingress := .Values.ingresses.grpc }}
 apiVersion: traefik.containo.us/v1alpha1
-kind: {{ $ingress.className }}
+kind: {{ default "IngressRouteTCP" $ingress.className }}
 metadata:
   name: {{ include "envoy.serviceName" . }}-grpc-ingress-route
   namespace: {{ .Release.Namespace }}
