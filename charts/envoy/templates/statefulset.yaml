@@ -56,10 +56,7 @@ spec:
               containerPort: {{ .grpc.port }}
             {{- end }}
             {{- end }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+          {{- include "envoy.volumeMounts" . | nindent 10 }}
           {{- include "envoy.environment" . | nindent 10 }}
           {{- if .Values.services.web.enabled }}
           livenessProbe:
@@ -67,10 +64,7 @@ spec:
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
-      volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      {{ include "envoy.volumes" . | nindent 6 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -87,6 +81,6 @@ spec:
     - metadata:
         name: {{ include "envoy.name" . }}-data
       spec:
-        {{- with .Values.volumeClaimTemplates.nodeData }}
+        {{- with .Values.storage.nodeData.spec }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

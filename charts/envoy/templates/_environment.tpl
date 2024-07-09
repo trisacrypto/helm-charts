@@ -54,6 +54,37 @@ If the web auth cookie domain isn't specified, compute it from the origin
 {{- end -}}
 {{- end -}}
 
+
+{{/*
+If the path to the certificates isn't provided, compute it from the certificates values
+*/}}
+{{- define "envoy.nodeCerts" -}}
+{{- if .Values.trisa.node.certs -}}
+{{ .Values.trisa.node.certs }}
+{{- else -}}
+{{- if .Values.certificate.name -}}
+{{ .Values.certificate.mountPath }}/{{ .Values.certificate.name }}
+{{- else -}}
+{{ .Values.certificate.mountPath}}/trisa-certificate.pem
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+If the path to the TRISA cert pool isn't provided, compute it from the certificates values
+*/}}
+{{- define "envoy.nodePool" -}}
+{{- if .Values.trisa.node.pool -}}
+{{ .Values.trisa.node.pool }}
+{{- else -}}
+{{- if .Values.certificate.name -}}
+{{ .Values.certificate.mountPath }}/{{ .Values.certificate.name }}
+{{- else -}}
+{{ .Values.certificate.mountPath}}/trisa-certificate.pem
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 If the web auth cookie domain isn't specified, compute it from the origin
 */}}
@@ -129,9 +160,9 @@ env:
   - name: TRISA_NODE_BIND_ADDR
     value: {{ include "envoy.grpcBindAddr" . | quote }}
   - name: TRISA_NODE_POOL
-    value: {{ .Values.trisa.node.pool | quote }}
+    value: {{ include "envoy.nodePool" . | quote }}
   - name: TRISA_NODE_CERTS
-    value: {{ .Values.trisa.node.certs | quote }}
+    value: {{ include "envoy.nodeCerts" . | quote }}
   - name: TRISA_NODE_KEY_EXCHANGE_CACHE_TTL
     value: {{ .Values.trisa.node.keyExchangeCacheTTL | quote }}
   - name: TRISA_NODE_DIRECTORY_INSECURE

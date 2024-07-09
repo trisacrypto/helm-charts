@@ -94,3 +94,50 @@ Selector labels
 app.kubernetes.io/name: {{ include "envoy.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+All volume mounts for the envoy node
+*/}}
+{{- define "envoy.volumeMounts" -}}
+volumeMounts:
+  {{- include "envoy.volumeMounts.certs" . | nindent 2 }}
+  {{- include "envoy.volumeMounts.nodeData" . | nindent 2 }}
+{{- end }}
+
+{{/*
+Volume mounts for the certificates secret
+*/}}
+{{- define "envoy.volumeMounts.certs" -}}
+- name: {{ include "envoy.name" . }}-certs
+  mountPath: {{ .Values.certificate.mountPath }}
+  readOnly: true
+{{- end }}
+
+{{/*
+Volume mounts for the certificates secret
+*/}}
+{{- define "envoy.volumeMounts.nodeData" -}}
+- name: {{ include "envoy.name" . }}-data
+  MountPath: {{ .Values.storage.nodeData.mountPath }}
+{{- end }}
+
+{{/*
+Volumes for the certificates secret
+*/}}
+{{- define "envoy.volumes" -}}
+volumes:
+  - name: {{ include "envoy.name" . }}-certs
+    secret:
+      secretName: {{ include "envoy.certificate.secret" . }}
+{{- end }}
+
+{{/*
+Define the secret name for the certificates
+*/}}
+{{- define "envoy.certificate.secret" -}}
+{{- if .Values.certificate.secretName }}
+{{- .Values.certificate.secretName }}
+{{- else }}
+{{- include "envoy.name" . }}-certs
+{{- end }}
+{{- end }}

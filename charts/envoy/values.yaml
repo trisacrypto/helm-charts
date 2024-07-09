@@ -36,6 +36,7 @@ certificate:
   secretName: ""
   name: ""
   data: ""
+  mountPath: "/data/certs"
 
 # The following is the TRISA configuration for the Envoy node. For more about
 # configuration options, please see https://trisa.dev/envoy/configuration/index.html
@@ -175,26 +176,15 @@ resources: {}
 #    cpu: "500m"
 
 # Define PVCs that are allocated per pod on the stateful set (e.g. envoy data)
-volumeClaimTemplates:
+storage:
   # The node data spec will be included in volume claim templates.
   nodeData:
-    accessModes: ["ReadWriteOnce"]
-    resources:
-      requests:
-        storage: 32Gi
-
-# Define the secrets volumes associated with the envoy node
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
-
-# Mount the envoy data volume and certificates information volumes
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+    mountPath: /data/db
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 32Gi
 
 # Optionally specify the security context fort of the pod
 # TODO: ensure these do not conflict with the operation of Envoy
