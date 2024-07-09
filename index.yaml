@@ -3,6 +3,26 @@ entries:
   envoy:
   - apiVersion: v2
     appVersion: v0.17.0
+    created: "2024-07-09T18:41:44.743876035Z"
+    dependencies:
+    - name: regioninfo
+      repository: ""
+      version: 1.0.0
+    description: An open source TRISA/TRP node for use in Travel Rule information
+      transfers.
+    digest: 18e59507eeba658df240b26513098cf10048716168d4ba6b36dddefdb1fda99c
+    home: https://trisa.dev
+    icon: https://trisa.dev/favicon.png
+    name: envoy
+    sources:
+    - https://github.com/trisacrypto/envoy
+    - https://github.com/trisacrypto/trisa
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/envoy-0.4.0/envoy-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: v0.17.0
     created: "2024-07-09T18:29:54.716259925Z"
     dependencies:
     - name: regioninfo
@@ -48,4 +68,4 @@ entries:
     urls:
     - https://github.com/trisacrypto/helm-charts/releases/download/envoy-0.1.0/envoy-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-09T18:29:54.71630869Z"
+generated: "2024-07-09T18:41:44.743900761Z"
