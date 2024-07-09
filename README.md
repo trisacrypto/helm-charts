@@ -17,21 +17,6 @@ If you had already added this repo earlier, run `helm repo update` to retrieve
 the latest versions of the packages.  You can then run `helm search repo
 trisacrypto` to see the charts.
 
-Prerequisites:
+## Available Charts
 
-1. You've applied for and recieved TRISA certificates from vaspdirectory.net
-2. You've decrypted your certificates using your PKCS12 password
-3. You've provisioned the DNS names specified in the certificates
-
-To install the Envoy chart for your testnet:
-
-    helm install vaspname trisacrypto/envoy \
-      --set isTestnet=true \
-      --set trisa.endpoint=testnet.vaspname.com \
-      --set trisa.web.origin=https://envoy.vaspname.com \
-      --set certificate.name=testnet.vaspname.com.pem
-      --set certificate.data=$(base64 -i ./secrets/testnet.vaspname.com.pem)
-
-To uninstall the chart:
-
-    helm uninstall vaspname
+- [Envoy](charts/envoy/README.md)

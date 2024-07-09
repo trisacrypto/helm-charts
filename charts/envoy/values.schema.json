@@ -1,0 +1,830 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "required": [
+        "isTestnet",
+        "certificate",
+        "trisa",
+        "storage"
+    ],
+    "properties": {
+        "isTestnet": {
+            "type": "boolean",
+            "default": true
+        },
+        "environment": {
+            "type": "string",
+            "default": ""
+        },
+        "nameOverride": {
+            "type": "string",
+            "default": ""
+        },
+        "fullnameOverride": {
+            "type": "string",
+            "default": ""
+        },
+        "serviceName": {
+            "type": "string",
+            "default": ""
+        },
+        "directory": {
+            "type": "string",
+            "default": ""
+        },
+        "certificate": {
+            "type": "object",
+            "required": [
+                "mountPath"
+            ],
+            "properties": {
+                "secretName": {
+                    "type": "string",
+                    "default": "trisa-certificate"
+                },
+                "name": {
+                    "type": "string",
+                    "default": ""
+                },
+                "data": {
+                    "type": "string",
+                    "default": ""
+                },
+                "mountPath": {
+                    "type": "string",
+                    "default": "/data/certs",
+                    "examples": [
+                        "/data/certs"
+                    ]
+                }
+            }
+        },
+        "trisa": {
+            "type": "object",
+            "required": [
+                "endpoint"
+            ],
+            "properties": {
+                "maintenance": {
+                    "type": "string",
+                    "default": "false",
+                    "examples": [
+                        "false", "true"
+                    ]
+                },
+                "mode": {
+                    "type": "string",
+                    "default": "release",
+                    "examples": [
+                        "release", "debug", "testing"
+                    ]
+                },
+                "logLevel": {
+                    "type": "string",
+                    "default": "info",
+                    "examples": [
+                        "trace", "debug", "info", "warn", "error", "fatal", "panic"
+                    ]
+                },
+                "consoleLog": {
+                    "type": "string",
+                    "default": "false",
+                    "examples": [
+                        "false", "true"
+                    ]
+                },
+                "databaseURL": {
+                    "type": "string",
+                    "default": "sqlite:////data/db/envoy.db",
+                    "examples": [
+                        "sqlite:////data/db/envoy.db"
+                    ]
+                },
+                "endpoint": {
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "trisa.vaspname.com:443"
+                    ]
+                },
+                "web": {
+                    "type": "object",
+                    "required": [
+                        "origin"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true", "false"
+                            ]
+                        },
+                        "apiEnabled": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true", "false"
+                            ]
+                        },
+                        "uiEnabled": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true", "false"
+                            ]
+                        },
+                        "bindAddr": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ":8000"
+                            ]
+                        },
+                        "origin": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "https://envoy.vaspname.com"
+                            ]
+                        },
+                        "auth": {
+                            "type": "object",
+                            "required": [],
+                            "properties": {
+                                "keys": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "01J2CNH46JHE3TQ8N7MXKK9X9G:path/to/01J2CNH46JHE3TQ8N7MXKK9X9G.pem"
+                                    ]
+                                },
+                                "audience": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "https://envoy.vaspname.com"
+                                    ]
+                                },
+                                "issuer": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "https://envoy.vaspname.com"
+                                    ]
+                                },
+                                "cookieDomain": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "envoy.vaspname.com"
+                                    ]
+                                },
+                                "accessTokenTTL": {
+                                    "type": "string",
+                                    "default": "1h",
+                                    "examples": [
+                                        "1h"
+                                    ]
+                                },
+                                "refreshTokenTTL": {
+                                    "type": "string",
+                                    "default": "2h",
+                                    "examples": [
+                                        "2h"
+                                    ]
+                                },
+                                "tokenOverlap": {
+                                    "type": "string",
+                                    "default": "-15m",
+                                    "examples": [
+                                        "-15m"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "node": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "enabled": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true", "false"
+                            ]
+                        },
+                        "bindAddr": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ":8100"
+                            ]
+                        },
+                        "pool": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "path/to/certpool.pem"
+                            ]
+                        },
+                        "certs": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "path/to/certs.pem"
+                            ]
+                        },
+                        "keyExchangeCacheTTL": {
+                            "type": "string",
+                            "default": "24h",
+                            "examples": [
+                                "24h"
+                            ]
+                        }
+                    }
+                },
+                "directory": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "insecure": {
+                            "type": "string",
+                            "default": "false",
+                            "examples": [
+                                "false", "true"
+                            ]
+                        },
+                        "endpoint": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "api.trisatest.net:443",
+                                "api.vaspdirectory.net:443"
+                            ]
+                        },
+                        "membersEndpoint": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "members.trisatest.net:443",
+                                "members.vaspdirectory.net:443"
+                            ]
+                        },
+                        "syncEnabled": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true", "false"
+                            ]
+                        },
+                        "syncInterval": {
+                            "type": "string",
+                            "default": "6h",
+                            "examples": [
+                                "6h"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "regioninfo": {
+            "type": "object",
+            "required": [],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "examples": [
+                        false, true
+                    ]
+                },
+                "configMap": {
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "region-info"
+                    ]
+                },
+                "install": {
+                    "type": "boolean",
+                    "default": false,
+                    "examples": [
+                        false, true
+                    ]
+                },
+                "info": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "2840282"
+                            ]
+                        },
+                        "name": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "us-central1-c"
+                            ]
+                        },
+                        "country": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "US"
+                            ]
+                        },
+                        "cloud": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "GCP"
+                            ]
+                        },
+                        "cluster": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "trisa-gke-usa-1"
+                            ]
+                        }
+                    }
+                },
+                "annotations": {
+                    "type": "object",
+                    "default": {},
+                    "required": [],
+                    "properties": {}
+                }
+            }
+        },
+        "replicaCount": {
+            "type": "integer",
+            "default": 1,
+            "examples": [
+                1
+            ]
+        },
+        "image": {
+            "type": "object",
+            "required": [
+                "repository",
+                "pullPolicy",
+                "tag"
+            ],
+            "properties": {
+                "repository": {
+                    "type": "string",
+                    "default": "trisa/envoy",
+                    "examples": [
+                        "trisa/envoy"
+                    ]
+                },
+                "pullPolicy": {
+                    "type": "string",
+                    "default": "Always",
+                    "examples": [
+                        "Always", "IfNotPresent", "Never"
+                    ]
+                },
+                "tag": {
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "v0.17.0"
+                    ]
+                }
+            }
+        },
+        "imagePullSecrets": {
+            "type": "array",
+            "default": [],
+            "items": {}
+        },
+        "services": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {
+                "web": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "examples": [
+                                true, false
+                            ]
+                        },
+                        "port": {
+                            "type": "integer",
+                            "default": 8000,
+                            "examples": [
+                                8000
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "ClusterIP",
+                            "examples": [
+                                "ClusterIP"
+                            ]
+                        }
+                    }
+                },
+                "grpc": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "examples": [
+                                true, true
+                            ]
+                        },
+                        "port": {
+                            "type": "integer",
+                            "default": 8100,
+                            "examples": [
+                                8100
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "ClusterIP",
+                            "examples": [
+                                "ClusterIP"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "ingresses": {
+            "type": "object",
+            "required": [],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "examples": [
+                        false, true
+                    ]
+                },
+                "web": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "className": {
+                            "type": "string",
+                            "default": "IngressRoute",
+                            "examples": [
+                                "IngressRoute"
+                            ]
+                        },
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "required": [],
+                            "properties": {}
+                        },
+                        "hostname": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "envoy.vaspname.com"
+                            ]
+                        },
+                        "entryPoints": {
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                                "type": "string",
+                                "default": "websecure",
+                                "examples": [
+                                    "websecure"
+                                ]
+                            }
+                        },
+                        "tls": {
+                            "type": "object",
+                            "default": {},
+                            "required": [],
+                            "properties": {}
+                        }
+                    }
+                },
+                "grpc": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "className": {
+                            "type": "string",
+                            "default": "IngressRouteTCP",
+                            "examples": [
+                                "IngressRouteTCP"
+                            ]
+                        },
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "required": [],
+                            "properties": {}
+                        },
+                        "hostname": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "trisa.vaspname.com"
+                            ]
+                        },
+                        "entryPoints": {
+                            "type": "array",
+                            "default": ["websecure"],
+                            "items": {
+                                "type": "string",
+                                "default": "",
+                                "examples": [
+                                    "websecure"
+                                ]
+                            }
+                        },
+                        "tls": {
+                            "type": "object",
+                            "default": {},
+                            "required": [
+                                "passthrough"
+                            ],
+                            "properties": {
+                                "passthrough": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "examples": [
+                                        true, false
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "resources": {
+            "type": "object",
+            "required": [],
+            "properties": {}
+        },
+        "storage": {
+            "type": "object",
+            "required": [
+                "nodeData"
+            ],
+            "properties": {
+                "nodeData": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "mountPath": {
+                            "type": "string",
+                            "default": "/data/db",
+                            "examples": [
+                                "/data/db"
+                            ]
+                        },
+                        "spec": {
+                            "type": "object",
+                            "default": {},
+                            "required": [],
+                            "properties": {
+                                "accessModes": {
+                                    "type": "array",
+                                    "default": ["ReadWriteOnce"],
+                                    "items": {
+                                        "type": "string",
+                                        "default": "",
+                                        "examples": [
+                                            "ReadWriteOnce"
+                                        ]
+                                    }
+                                },
+                                "resources": {
+                                    "type": "object",
+                                    "required": [],
+                                    "properties": {
+                                        "requests": {
+                                            "type": "object",
+                                            "default": {},
+                                            "required": [],
+                                            "properties": {
+                                                "storage": {
+                                                    "type": "string",
+                                                    "default": "32Gi"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {}
+        },
+        "securityContext": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {}
+        },
+        "livenessProbe": {
+            "type": "object",
+            "required": [],
+            "properties": {
+                "httpGet": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "default": "/livez",
+                            "examples": [
+                                "/livez"
+                            ]
+                        },
+                        "port": {
+                            "type": "integer",
+                            "default": 8000,
+                            "examples": [
+                                8000
+                            ]
+                        },
+                        "httpHeaders": {
+                            "type": "array",
+                            "default": [{
+                                "name": "X-Kubernetes-Probe",
+                                "value": "liveness"
+                            }],
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "default": "",
+                                        "examples": [
+                                            "X-Kubernetes-Probe"
+                                        ]
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "default": "",
+                                        "examples": [
+                                            "liveness"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "name": "X-Kubernetes-Probe",
+                                    "value": "liveness"
+                                }]
+                            }
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer",
+                    "default": 2
+                },
+                "periodSeconds": {
+                    "type": "integer",
+                    "default": 10
+                }
+            }
+        },
+        "readinessProbe": {
+            "type": "object",
+            "required": [],
+            "properties": {
+                "httpGet": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "default": "/readyz",
+                            "examples": [
+                                "/readyz"
+                            ]
+                        },
+                        "port": {
+                            "type": "integer",
+                            "default": 8000,
+                            "examples": [
+                                8000
+                            ]
+                        },
+                        "httpHeaders": {
+                            "type": "array",
+                            "default": [
+                              {
+                                  "name": "X-Kubernetes-Probe",
+                                  "value": "readiness"
+                              }
+                            ],
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "default": "",
+                                        "examples": [
+                                            "X-Kubernetes-Probe"
+                                        ]
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "default": "",
+                                        "title": "The value Schema",
+                                        "examples": [
+                                            "readiness"
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "name": "X-Kubernetes-Probe",
+                                    "value": "readiness"
+                                }]
+                            }
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer",
+                    "default": 2,
+                    "examples": [
+                        2
+                    ]
+                },
+                "periodSeconds": {
+                    "type": "integer",
+                    "default": 10,
+                    "examples": [
+                        10
+                    ]
+                }
+            }
+        },
+        "podAnnotations": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {}
+        },
+        "podLabels": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {}
+        },
+        "nodeSelector": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {}
+        },
+        "tolerations": {
+            "type": "array",
+            "default": [],
+            "required": [],
+            "items": {}
+        },
+        "affinity": {
+            "type": "object",
+            "default": {},
+            "required": [],
+            "properties": {}
+        }
+    }
+}

@@ -1,4 +1,4 @@
-# The Charlie VASP is an Envoy node that is managed by Helm
+# The Alice VASP is an Envoy node that is managed by Helm
 # These are the values that are set for the helm chart.
 
 # If this node is a TRISA testnet node, then it's testnet values will be updated
