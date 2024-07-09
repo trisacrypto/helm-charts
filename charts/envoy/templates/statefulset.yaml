@@ -41,7 +41,7 @@ spec:
           {{- end }}
           {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
             {{- with .Values.services }}
