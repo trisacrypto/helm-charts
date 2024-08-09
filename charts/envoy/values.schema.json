@@ -24,6 +24,10 @@
             "type": "string",
             "default": ""
         },
+        "displayName": {
+            "type": "string",
+            "default": ""
+        },
         "serviceName": {
             "type": "string",
             "default": ""
@@ -69,28 +73,38 @@
                     "type": "string",
                     "default": "false",
                     "examples": [
-                        "false", "true"
+                        "false",
+                        "true"
                     ]
                 },
                 "mode": {
                     "type": "string",
                     "default": "release",
                     "examples": [
-                        "release", "debug", "testing"
+                        "release",
+                        "debug",
+                        "testing"
                     ]
                 },
                 "logLevel": {
                     "type": "string",
                     "default": "info",
                     "examples": [
-                        "trace", "debug", "info", "warn", "error", "fatal", "panic"
+                        "trace",
+                        "debug",
+                        "info",
+                        "warn",
+                        "error",
+                        "fatal",
+                        "panic"
                     ]
                 },
                 "consoleLog": {
                     "type": "string",
                     "default": "false",
                     "examples": [
-                        "false", "true"
+                        "false",
+                        "true"
                     ]
                 },
                 "databaseURL": {
@@ -98,6 +112,13 @@
                     "default": "sqlite:////data/db/envoy.db",
                     "examples": [
                         "sqlite:////data/db/envoy.db"
+                    ]
+                },
+                "webhookURL": {
+                    "type": "string",
+                    "default": "",
+                    "examples": [
+                        "https://example.com/trisa-callback"
                     ]
                 },
                 "endpoint": {
@@ -117,21 +138,24 @@
                             "type": "string",
                             "default": "true",
                             "examples": [
-                                "true", "false"
+                                "true",
+                                "false"
                             ]
                         },
                         "apiEnabled": {
                             "type": "string",
                             "default": "true",
                             "examples": [
-                                "true", "false"
+                                "true",
+                                "false"
                             ]
                         },
                         "uiEnabled": {
                             "type": "string",
                             "default": "true",
                             "examples": [
-                                "true", "false"
+                                "true",
+                                "false"
                             ]
                         },
                         "bindAddr": {
@@ -146,6 +170,13 @@
                             "default": "",
                             "examples": [
                                 "https://envoy.vaspname.com"
+                            ]
+                        },
+                        "docsName": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "Local Development Server"
                             ]
                         },
                         "auth": {
@@ -213,7 +244,8 @@
                             "type": "string",
                             "default": "true",
                             "examples": [
-                                "true", "false"
+                                "true",
+                                "false"
                             ]
                         },
                         "bindAddr": {
@@ -254,7 +286,8 @@
                             "type": "string",
                             "default": "false",
                             "examples": [
-                                "false", "true"
+                                "false",
+                                "true"
                             ]
                         },
                         "endpoint": {
@@ -277,7 +310,8 @@
                             "type": "string",
                             "default": "true",
                             "examples": [
-                                "true", "false"
+                                "true",
+                                "false"
                             ]
                         },
                         "syncInterval": {
@@ -285,6 +319,56 @@
                             "default": "6h",
                             "examples": [
                                 "6h"
+                            ]
+                        }
+                    }
+                },
+                "trp": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "enabled": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true",
+                                "false"
+                            ]
+                        },
+                        "bindAddr": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "https://trp.example.com/"
+                            ]
+                        },
+                        "endpoint": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                ":8200"
+                            ]
+                        },
+                        "useMTLS": {
+                            "type": "string",
+                            "default": "true",
+                            "examples": [
+                                "true",
+                                "false"
+                            ]
+                        },
+                        "pool": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "path/to/certpool.pem"
+                            ]
+                        },
+                        "certs": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "path/to/certs.pem"
                             ]
                         }
                     }
@@ -299,7 +383,8 @@
                     "type": "boolean",
                     "default": false,
                     "examples": [
-                        false, true
+                        false,
+                        true
                     ]
                 },
                 "configMap": {
@@ -313,7 +398,8 @@
                     "type": "boolean",
                     "default": false,
                     "examples": [
-                        false, true
+                        false,
+                        true
                     ]
                 },
                 "info": {
@@ -391,7 +477,9 @@
                     "type": "string",
                     "default": "Always",
                     "examples": [
-                        "Always", "IfNotPresent", "Never"
+                        "Always",
+                        "IfNotPresent",
+                        "Never"
                     ]
                 },
                 "tag": {
@@ -421,7 +509,8 @@
                             "type": "boolean",
                             "default": false,
                             "examples": [
-                                true, false
+                                true,
+                                false
                             ]
                         },
                         "port": {
@@ -448,7 +537,8 @@
                             "type": "boolean",
                             "default": false,
                             "examples": [
-                                true, true
+                                true,
+                                true
                             ]
                         },
                         "port": {
@@ -477,7 +567,8 @@
                     "type": "boolean",
                     "default": false,
                     "examples": [
-                        false, true
+                        false,
+                        true
                     ]
                 },
                 "web": {
@@ -549,7 +640,9 @@
                         },
                         "entryPoints": {
                             "type": "array",
-                            "default": ["websecure"],
+                            "default": [
+                                "websecure"
+                            ],
                             "items": {
                                 "type": "string",
                                 "default": "",
@@ -569,7 +662,8 @@
                                     "type": "boolean",
                                     "default": false,
                                     "examples": [
-                                        true, false
+                                        true,
+                                        false
                                     ]
                                 }
                             }
@@ -607,7 +701,9 @@
                             "properties": {
                                 "accessModes": {
                                     "type": "array",
-                                    "default": ["ReadWriteOnce"],
+                                    "default": [
+                                        "ReadWriteOnce"
+                                    ],
                                     "items": {
                                         "type": "string",
                                         "default": "",
@@ -675,10 +771,12 @@
                         },
                         "httpHeaders": {
                             "type": "array",
-                            "default": [{
-                                "name": "X-Kubernetes-Probe",
-                                "value": "liveness"
-                            }],
+                            "default": [
+                                {
+                                    "name": "X-Kubernetes-Probe",
+                                    "value": "liveness"
+                                }
+                            ],
                             "items": {
                                 "type": "object",
                                 "required": [
@@ -701,10 +799,12 @@
                                         ]
                                     }
                                 },
-                                "examples": [{
-                                    "name": "X-Kubernetes-Probe",
-                                    "value": "liveness"
-                                }]
+                                "examples": [
+                                    {
+                                        "name": "X-Kubernetes-Probe",
+                                        "value": "liveness"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -744,10 +844,10 @@
                         "httpHeaders": {
                             "type": "array",
                             "default": [
-                              {
-                                  "name": "X-Kubernetes-Probe",
-                                  "value": "readiness"
-                              }
+                                {
+                                    "name": "X-Kubernetes-Probe",
+                                    "value": "readiness"
+                                }
                             ],
                             "items": {
                                 "type": "object",
@@ -772,10 +872,12 @@
                                         ]
                                     }
                                 },
-                                "examples": [{
-                                    "name": "X-Kubernetes-Probe",
-                                    "value": "readiness"
-                                }]
+                                "examples": [
+                                    {
+                                        "name": "X-Kubernetes-Probe",
+                                        "value": "readiness"
+                                    }
+                                ]
                             }
                         }
                     }

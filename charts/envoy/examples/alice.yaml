@@ -14,6 +14,11 @@ environment: "demo"
 nameOverride: "rvasp-alice"
 fullnameOverride: ""
 
+# Display name can be used to set the name of the server in the UX and in the
+# interactive Swagger API documentation; it is computed from the name and the
+# environment if not specified.
+displayName: "Alice rVASP"
+
 # Service name defines the domain of the headless service to connect to the pods on
 # By default the name computed for the application is used but with "." instead of "-"
 # for testnet prefixing.
