@@ -35,3 +35,22 @@ spec:
   selector:
     {{- include "envoy.selectorLabels" . | nindent 4 }}
 {{- end}}
+---
+{{- if .Values.services.trp.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "envoy.serviceName" . }}-trp
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "envoy.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.services.trp.type }}
+  ports:
+    - name: trp
+      port: {{ .Values.services.trp.port }}
+      targetPort: trp
+      protocol: TCP
+  selector:
+    {{- include "envoy.selectorLabels" . | nindent 4 }}
+{{- end}}

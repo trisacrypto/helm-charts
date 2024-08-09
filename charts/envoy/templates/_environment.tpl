@@ -21,6 +21,17 @@ Compute the grpc bind addr from the services port if not provided elsewhere
 {{- end -}}
 
 {{/*
+Compute the trp bind addr from the services port if not provided elsewhere
+*/}}
+{{- define "envoy.trpBindAddr" -}}
+{{- if .Values.trisa.trp.bindAddr -}}
+{{ .Values.trisa.trp.bindAddr }}
+{{- else -}}
+:{{ .Values.services.trp.port }}
+{{- end -}}
+{{- end -}}
+
+{{/*
 If the web auth audience isn't specified, use the origin
 */}}
 {{- define "envoy.webAudience" -}}

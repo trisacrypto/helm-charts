@@ -176,6 +176,10 @@ services:
     enabled: true
     port: 8100
     type: ClusterIP
+  trp:
+    enabled: true
+    port: 8200
+    type: ClusterIP
 
 ingresses:
   enabled: false
@@ -195,6 +199,14 @@ ingresses:
       - websecure
     tls:
       passthrough: true
+  trp:
+    className: "IngressRoute"
+    annotations: {}
+    hostname: ""
+    entryPoints:
+      - websecure
+    tls: {}
+      # secretName: tls-certs
 
 # Define the resources used by the container (left blank if unset)
 resources: {}

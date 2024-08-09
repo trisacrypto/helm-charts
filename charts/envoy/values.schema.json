@@ -556,6 +556,34 @@
                             ]
                         }
                     }
+                },
+                "trp": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false,
+                            "examples": [
+                                true,
+                                false
+                            ]
+                        },
+                        "port": {
+                            "type": "integer",
+                            "default": 8200,
+                            "examples": [
+                                8200
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "ClusterIP",
+                            "examples": [
+                                "ClusterIP"
+                            ]
+                        }
+                    }
                 }
             }
         },
@@ -667,6 +695,49 @@
                                     ]
                                 }
                             }
+                        }
+                    }
+                },
+                "trp": {
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "className": {
+                            "type": "string",
+                            "default": "IngressRoute",
+                            "examples": [
+                                "IngressRoute"
+                            ]
+                        },
+                        "annotations": {
+                            "type": "object",
+                            "default": {},
+                            "required": [],
+                            "properties": {}
+                        },
+                        "hostname": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "trp.vaspname.com"
+                            ]
+                        },
+                        "entryPoints": {
+                            "type": "array",
+                            "default": [],
+                            "items": {
+                                "type": "string",
+                                "default": "websecure",
+                                "examples": [
+                                    "websecure"
+                                ]
+                            }
+                        },
+                        "tls": {
+                            "type": "object",
+                            "default": {},
+                            "required": [],
+                            "properties": {}
                         }
                     }
                 }
