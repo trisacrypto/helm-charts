@@ -1,0 +1,6 @@
+dependencies:
+- name: regioninfo
+  repository: ""
+  version: 1.0.1
+digest: sha256:0d90b9ef04de04818114a73f9b7e6b927da093cb23d7b0cc814cce0f8227552a
+generated: "2024-08-09T14:14:24.485615-05:00"

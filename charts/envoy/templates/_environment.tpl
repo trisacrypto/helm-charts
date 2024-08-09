@@ -21,6 +21,17 @@ Compute the grpc bind addr from the services port if not provided elsewhere
 {{- end -}}
 
 {{/*
+Compute the trp bind addr from the services port if not provided elsewhere
+*/}}
+{{- define "envoy.trpBindAddr" -}}
+{{- if .Values.trisa.trp.bindAddr -}}
+{{ .Values.trisa.trp.bindAddr }}
+{{- else -}}
+:{{ .Values.services.trp.port }}
+{{- end -}}
+{{- end -}}
+
+{{/*
 If the web auth audience isn't specified, use the origin
 */}}
 {{- define "envoy.webAudience" -}}
@@ -116,6 +127,22 @@ members.vaspdirectory.net:443
 {{- end -}}
 
 {{/*
+Compute the display name of the organization
+*/}}
+{{- define "envoy.displayName" -}}
+{{- if .Values.displayName -}}
+{{ .Values.displayName }}
+{{- else -}}
+{{- if .Values.isTestnet -}}
+{{ include "envoy.name" . | replace "-" " " | title }} TestNet
+{{- else -}}
+{{ include "envoy.name" . | replace "-" " " | title }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+
+{{/*
 The Envoy node is primarily configured through the environment, which is defined by the
 following template and rendered from the configuration values provided by the user.
 */}}
@@ -123,6 +150,8 @@ following template and rendered from the configuration values provided by the us
 env:
   - name: TRISA_MAINTENANCE
     value: {{ .Values.trisa.maintenance | quote }}
+  - name: TRISA_ORGANIZATION
+    value: {{ include "envoy.displayName" . | quote }}
   - name: TRISA_MODE
     value: {{ .Values.trisa.mode | quote }}
   - name: TRISA_LOG_LEVEL
@@ -131,8 +160,12 @@ env:
     value: {{ .Values.trisa.consoleLog | quote }}
   - name: TRISA_DATABASE_URL
     value: {{ .Values.trisa.databaseURL | quote }}
+  - name: TRISA_WEBHOOK_URL
+    value: {{ .Values.trisa.webhookURL | quote }}
   - name: TRISA_ENDPOINT
     value: {{ .Values.trisa.endpoint | quote }}
+  - name: TRISA_TRP_ENDPOINT
+    value: {{ .Values.trisa.trp.endpoint | quote }}
   - name: TRISA_WEB_ENABLED
     value: {{ .Values.trisa.web.enabled | quote }}
   - name: TRISA_WEB_API_ENABLED
@@ -143,6 +176,10 @@ env:
     value: {{ include "envoy.webBindAddr" . | quote }}
   - name: TRISA_WEB_ORIGIN
     value: {{ .Values.trisa.web.origin | quote }}
+  - name: TRISA_WEB_DOCS_NAME
+    value: {{ .Values.trisa.web.docsName | quote }}
+  - name: TRISA_WEB_AUTH_KEYS
+    value: ""
   - name: TRISA_WEB_AUTH_AUDIENCE
     value: {{ include "envoy.webAudience" . | quote }}
   - name: TRISA_WEB_AUTH_ISSUER
@@ -175,6 +212,16 @@ env:
     value: {{ .Values.trisa.directory.syncEnabled | quote }}
   - name: TRISA_DIRECTORY_SYNC_INTERVAL
     value: {{ .Values.trisa.directory.syncInterval | quote }}
+  - name: TRISA_TRP_ENABLED
+    value: {{ .Values.trisa.trp.enabled | quote }}
+  - name: TRISA_TRP_BIND_ADDR
+    value: {{ include "envoy.trpBindAddr" . | quote }}
+  - name: TRISA_TRP_USE_MTLS
+    value: {{ .Values.trisa.trp.useMTLS | quote }}
+  - name: TRISA_TRP_POOL
+    value: {{ .Values.trisa.trp.pool | quote }}
+  - name: TRISA_TRP_CERTS
+    value: {{ .Values.trisa.trp.certs | quote }}
   {{- if .Values.regioninfo.enabled }}
   {{- $configMap := default "region-info" .Values.regioninfo.configMap }}
   - name: REGION_INFO_ID

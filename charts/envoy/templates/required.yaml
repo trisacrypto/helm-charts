@@ -5,6 +5,13 @@ contains all required information to install an envoy node.
 {{- $_ := required "trisa.endpoint is a required value and must match configured ingresses" .Values.trisa.endpoint}}
 {{- $_ := required "trisa.web.origin is a required value and must match configured ingresses" .Values.trisa.web.origin}}
 {{- if .Values.ingresses.enabled -}}
+{{- if .Values.services.web.enabled -}}
 {{- $_ := required "ingresses.web.hostname is a required value and must match configured trisa.web.origin hostname" .Values.ingresses.web.hostname}}
+{{- end -}}
+{{- if .Values.services.grpc.enabled -}}
 {{- $_ := required "ingresses.grpc.hostname is a required value and must match configured trisa.endpoint hostname" .Values.ingresses.grpc.hostname}}
+{{- end -}}
+{{- if .Values.services.trp.enabled -}}
+{{- $_ := required "ingresses.trp.hostname is a required value and must match configured trisa.trp.endpoint hostname" .Values.ingresses.trp.hostname}}
+{{- end -}}
 {{- end -}}
