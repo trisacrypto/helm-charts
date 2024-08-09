@@ -107,9 +107,9 @@ trisa:
     keyExchangeCacheTTL: "24h"
 
   directory:
-    insecure: "false"   # Only used for development!
-    endpoint: ""        # If left blank, this is determined by the isTestnet flag
-    membersEndpoint: "" # If left blank, this is determined by the isTestnet flag
+    insecure: "false"    # Only used for development!
+    endpoint: ""         # If left blank, this is determined by the isTestnet flag
+    membersEndpoint: ""  # If left blank, this is determined by the isTestnet flag
     syncEnabled: "true"
     syncInterval: "6h"
 
