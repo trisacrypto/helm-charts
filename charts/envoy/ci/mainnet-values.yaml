@@ -80,6 +80,13 @@ regioninfo:
   # specified config map
   enabled: true
   configMap: "region-info"
+  install: true
+  info:
+    id: "9"
+    name: "us-github-1a"
+    country: "US"
+    cloud: "GHA"
+    cluster: "kind"
 
 # Define the ports to bind the envoy service(s) on. Note that this will also influence
 # the configuration of the node to bind to these ports as well so they only have to be
