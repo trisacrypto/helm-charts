@@ -93,7 +93,7 @@ services:
     type: ClusterIP
 
 ingresses:
-  enabled: true
+  enabled: false
   web:
     className: "IngressRoute"
     annotations: {}
