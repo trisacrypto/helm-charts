@@ -121,12 +121,12 @@ ingresses:
 
 # Define the resources used by the container (left blank if unset)
 resources:
- requests:
-   memory: "32Mi"
-   cpu: "100m"
- limits:
-   memory: "512Mi"
-   cpu: "500m"
+  requests:
+    memory: "32Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
 
 # Define PVCs that are allocated per pod on the stateful set (e.g. envoy data)
 volumeClaimTemplates:
