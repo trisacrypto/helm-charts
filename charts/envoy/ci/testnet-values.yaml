@@ -1,0 +1,138 @@
+# The Alice VASP is an Envoy node that is managed by Helm
+# These are the values that are set for the helm chart.
+
+# If this node is a TRISA testnet node, then it's testnet values will be updated
+isTestnet: true
+
+# Environment can be set to "staging", "development", "production", or omitted
+environment: "development"
+
+# Name overrides: by default the name will be release-envoy and it is
+# recommended that the release name be the name of the VASP. If you would like to
+# override the name, you can do so below; if you would like to override the -envoy
+# suffix, then use the fullnameOverride.
+nameOverride: "alice"
+fullnameOverride: ""
+
+# Display name can be used to set the name of the server in the UX and in the
+# interactive Swagger API documentation; it is computed from the name and the
+# environment if not specified.
+displayName: "Alice rVASP"
+
+# Service name defines the domain of the headless service to connect to the pods on
+# By default the name computed for the application is used but with "." instead of "-"
+# for testnet prefixing.
+serviceName: "alice"
+
+certificate:
+  name: "trisa.testnet.alice.vaspbot.net.pem"
+
+# The following is the TRISA configuration for the Envoy node. For more about
+# configuration options, please see https://trisa.dev/envoy/configuration/index.html
+# These values are mounted into each pod as an environment variable.
+trisa:
+  maintenance: "false"
+  logLevel: info
+
+  # Required: user must populate this value!
+  # Endpoint must include the hostname:port as it is defined for external users to
+  # connect to this service. If ingresses are enabled, it must match the ingress route.
+  endpoint: "trisa.testnet.alice.vaspbot.net:443"
+
+  web:
+    enabled: "true"
+    apiEnabled: "true"
+    uiEnabled: "true"
+
+    # Required: user must populate this value!
+    # Set to the full URL of the web UI which should match the ingress route
+    origin: "https://testnet.alice.vaspbot.net"
+
+    auth:
+      # Optional: specify keys for generating JWT tokens (random ones will be generated if blank)
+      keys: ""
+
+      # Specify access token behavior for login
+      accessTokenTTL: "1h"
+      refreshTokenTTL: "2h"
+      tokenOverlap: "-15m"
+
+  node:
+    enabled: "true"
+
+  trp:
+    enabled: "true"
+    endpoint: "https://trp.testnet.alice.vaspbot.net/"
+    useMTLS: "false"
+
+# Because TRISA is a globally distributed system, region deployment information is
+# useful information on the node. This information can be provided via config map or
+# manually specified in the values.yaml -- behavior is not defined for when both are
+# specified.
+regioninfo:
+  # If enabled is true, will load the region info into the environment from the
+  # specified config map
+  enabled: true
+  configMap: "region-info"
+
+# Define the ports to bind the envoy service(s) on. Note that this will also influence
+# the configuration of the node to bind to these ports as well so they only have to be
+# defined once in this values file rather than multiple times.
+services:
+  web:
+    enabled: true
+    port: 8000
+    type: ClusterIP
+  grpc:
+    enabled: true
+    port: 8100
+    type: ClusterIP
+  trp:
+    enabled: true
+    port: 8200
+    type: ClusterIP
+
+ingresses:
+  enabled: true
+  web:
+    className: "IngressRoute"
+    annotations: {}
+    hostname: "testnet.alice.vaspbot.net"
+    entryPoints:
+      - websecure
+    tls:
+      secretName: envoy-certs
+  grpc:
+    className: "IngressRouteTCP"
+    annotations: {}
+    hostname: "trisa.testnet.alice.vaspbot.net"
+    entryPoints:
+      - websecure
+    tls:
+      passthrough: true
+  trp:
+    className: "IngressRoute"
+    annotations: {}
+    hostname: "trp.testnet.alice.vaspbot.net"
+    entryPoints:
+      - websecure
+    tls:
+      secretName: envoy-certs
+
+# Define the resources used by the container (left blank if unset)
+resources:
+ requests:
+   memory: "32Mi"
+   cpu: "100m"
+ limits:
+   memory: "512Mi"
+   cpu: "500m"
+
+# Define PVCs that are allocated per pod on the stateful set (e.g. envoy data)
+volumeClaimTemplates:
+  # The node data spec will be included in volume claim templates.
+  nodeData:
+    accessModes: ["ReadWriteOnce"]
+    resources:
+      requests:
+        storage: 1Gi
