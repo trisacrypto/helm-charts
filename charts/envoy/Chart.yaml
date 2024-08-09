@@ -33,3 +33,6 @@ icon: https://trisa.dev/favicon.png
 sources:
   - https://github.com/trisacrypto/envoy
   - https://github.com/trisacrypto/trisa
+maintainers:
+  - name: Rotational Labs
+    email: support@rotational.io
