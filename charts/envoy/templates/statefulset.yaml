@@ -55,6 +55,11 @@ spec:
               protocol: TCP
               containerPort: {{ .grpc.port }}
             {{- end }}
+            {{- if .trp.enabled }}
+            - name: trp
+              protocol: TCP
+              containerPort: {{ .trp.port }}
+            {{- end }}
             {{- end }}
           {{- include "envoy.volumeMounts" . | nindent 10 }}
           {{- include "envoy.environment" . | nindent 10 }}
