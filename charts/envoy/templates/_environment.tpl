@@ -222,6 +222,10 @@ env:
     value: {{ .Values.trisa.trp.pool | quote }}
   - name: TRISA_TRP_CERTS
     value: {{ .Values.trisa.trp.certs | quote }}
+  - name: TRISA_TRP_IDENTITY_VASP_NAME
+    value: {{ .Values.trisa.trp.identity.vaspName | quote }}
+  - name: TRISA_TRP_IDENTITY_LEI
+    value: {{ .Values.trisa.trp.identity.lei | quote }}
   {{- if .Values.regioninfo.enabled }}
   {{- $configMap := default "region-info" .Values.regioninfo.configMap }}
   - name: REGION_INFO_ID

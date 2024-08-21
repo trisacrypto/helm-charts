@@ -131,6 +131,14 @@ trisa:
     pool: ""
     certs: ""
 
+    # Identity is used for TRP discovery
+    identity:
+      # If empty then organization name is used to identify the vasp in TRP discovery
+      vaspName: ""
+
+      # LEI of the VASP organization
+      lei: ""
+
 # Because TRISA is a globally distributed system, region deployment information is
 # useful information on the node. This information can be provided via config map or
 # manually specified in the values.yaml -- behavior is not defined for when both are

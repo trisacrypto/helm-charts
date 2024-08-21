@@ -370,6 +370,26 @@
                             "examples": [
                                 "path/to/certs.pem"
                             ]
+                        },
+                        "identity": {
+                          "type": "object",
+                          "required": [],
+                          "properties": {
+                            "vaspName": {
+                              "type": "string",
+                              "default": "",
+                              "examples": [
+                                "Example VASP"
+                              ]
+                            },
+                            "lei": {
+                              "type": "string",
+                              "default": "",
+                              "examples": [
+                                "GTFZ00N6IHYMHHNT8S51"
+                              ]
+                            }
+                          }
                         }
                     }
                 }
