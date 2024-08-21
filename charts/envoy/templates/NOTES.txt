@@ -7,6 +7,9 @@ You can reach your application via the following endpoints:
 {{- if .Values.trisa.node.enabled }}
 - TRISA Node: {{ .Values.trisa.endpoint }}
 {{- end }}
+{{- if .Values.trisa.trp.enabled }}
+- TRP Endpoint: {{ .Values.trisa.trp.endpoint }}
+{{- end }}
 
 Your release is named {{ .Release.Name }} and your application is defined as:
 

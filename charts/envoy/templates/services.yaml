@@ -35,7 +35,7 @@ spec:
   selector:
     {{- include "envoy.selectorLabels" . | nindent 4 }}
 {{- end}}
-{{- if .Values.services.trp.enabled -}}
+{{ if .Values.services.trp.enabled -}}
 ---
 apiVersion: v1
 kind: Service
