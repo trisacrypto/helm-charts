@@ -22,6 +22,10 @@ spec:
         - name: {{ include "envoy.serviceName" . }}-web
           namespace: {{ .Release.Namespace }}
           port: {{ .Values.services.web.port }}
+      {{- if .Values.ipAllowList.enabled }}
+      middlewares:
+        - name: {{ include "envoy.serviceName" . }}-ipallowlist
+      {{- end }}
   {{- with $ingress.tls }}
   tls:
     {{- toYaml $ingress.tls | nindent 4 }}

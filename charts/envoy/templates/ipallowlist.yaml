@@ -1,0 +1,15 @@
+{{- if .Values.ingresses.enabled -}}
+{{- if .Values.ipAllowList.enabled -}}
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "envoy.serviceName" . }}-ipallowlist
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "envoy.labels" . | nindent 4 }}
+spec:
+  ipWhiteList:
+    sourceRange:
+      {{- toYaml .Values.ipAllowList.sourceRange | nindent 6 }}
+{{- end }}
+{{- end }}

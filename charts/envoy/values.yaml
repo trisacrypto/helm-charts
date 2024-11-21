@@ -216,6 +216,10 @@ ingresses:
     tls: {}
       # secretName: tls-certs
 
+ipAllowList:
+  enabled: false
+  sourceRange: []
+
 # Define the resources used by the container (left blank if unset)
 resources: {}
 #  requests:
