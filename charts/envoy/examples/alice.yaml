@@ -119,6 +119,12 @@ ingresses:
     tls:
       secretName: envoy-certs
 
+ipAllowList:
+  enabled: false
+  sourceRange:
+    - 192.168.1.1
+    - 192.168.10.0/24
+
 # Define the resources used by the container (left blank if unset)
 resources:
   requests:

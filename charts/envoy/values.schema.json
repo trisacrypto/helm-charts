@@ -763,6 +763,32 @@
                 }
             }
         },
+        "ipAllowList": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false,
+              "examples": [
+                false,
+                true
+              ]
+            },
+            "sourceRange": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "string",
+                "default": "",
+                "examples": [
+                  "192.168.1.1",
+                  "192.168.1.0/24"
+                ]
+              }
+            }
+          }
+        },
         "resources": {
             "type": "object",
             "required": [],
