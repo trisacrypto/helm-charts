@@ -139,6 +139,42 @@ trisa:
       # LEI of the VASP organization
       lei: ""
 
+  sunrise:
+    # For sunrise to work it needs to be enabled and there needs to be a valid email
+    # configuration set so that sunrise emails can be sent.
+    enabled: "false"
+
+    # OTP requires a secondary verification using a one-time password sent to the email
+    # address of the contact the sunrise message was sent to. Disable to only use the
+    # verification token method.
+    requireOTP: "false"
+
+  # The email configuration allows envoy to send emails via SendGrid or SMTP.
+  # A valid email configuration is required for sunrise to work.
+  email:
+    # The email address that messages are sent from e.g. "Name <compliance@example.com>"
+    sender:
+      name: ""
+      email: ""
+
+    # A support email that is included in the email message and error pages (optional).
+    supportEmail: ""
+
+    # A compliance email that is included in the email message and VASP info (optional).
+    complianceEmail: ""
+
+    # Specify either SMTP or SendGrid - not both!
+    smtp:
+      host: ""
+      port: 587
+      username: ""
+      password: ""
+      useCRAMMD5: "false"
+      poolSize: 2
+
+    sendgrid:
+      apiKey: ""
+
 # Because TRISA is a globally distributed system, region deployment information is
 # useful information on the node. This information can be provided via config map or
 # manually specified in the values.yaml -- behavior is not defined for when both are

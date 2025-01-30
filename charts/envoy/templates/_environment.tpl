@@ -226,6 +226,36 @@ env:
     value: {{ .Values.trisa.trp.identity.vaspName | quote }}
   - name: TRISA_TRP_IDENTITY_LEI
     value: {{ .Values.trisa.trp.identity.lei | quote }}
+  - name: TRISA_SUNRISE_ENABLED
+    value: {{ .Values.trisa.sunrise.enabled | quote }}
+  - name: TRISA_SUNRISE_REQUIRE_OTP
+    value: {{ .Values.trisa.sunrise.requireOTP | quote }}
+  - name: TRISA_EMAIL_SENDER
+    value: {{ .Values.trisa.email.sender.email | quote }}
+  - name: TRISA_EMAIL_SENDER_NAME
+    value: {{ .Values.trisa.email.sender.name | quote }}
+  - name: TRISA_EMAIL_SUPPORT_EMAIL
+    value: {{ .Values.trisa.email.supportEmail | quote }}
+  - name: TRISA_EMAIL_COMPLIANCE_EMAIL
+    value: {{ .Values.trisa.email.complianceEmail | quote }}
+  {{- if .Values.trisa.email.smtp.host }}
+  - name: TRISA_EMAIL_SMTP_HOST
+    value: {{ .Values.trisa.email.smtp.host | quote }}
+  - name: TRISA_EMAIL_SMTP_PORT
+    value: {{ .Values.trisa.email.smtp.port | quote }}
+  - name: TRISA_EMAIL_SMTP_USERNAME
+    value: {{ .Values.trisa.email.smtp.username | quote }}
+  - name: TRISA_EMAIL_SMTP_PASSWORD
+    value: {{ .Values.trisa.email.smtp.password | quote }}
+  - name: TRISA_EMAIL_SMTP_USE_CRAM_MD5
+    value: {{ .Values.trisa.email.smtp.useCRAMMD5 | quote }}
+  - name: TRISA_EMAIL_SMTP_POOL_SIZE
+    value: {{ .Values.trisa.email.smtp.poolSize | quote }}
+  {{- end }}
+  {{- if .Values.trisa.email.sendgrid.apiKey }}
+  - name: TRISA_EMAIL_SENDGRID_API_KEY
+    value: {{ .Values.trisa.email.sendgrid.apiKey | quote }}
+  {{- end}}
   {{- if .Values.regioninfo.enabled }}
   {{- $configMap := default "region-info" .Values.regioninfo.configMap }}
   - name: REGION_INFO_ID
