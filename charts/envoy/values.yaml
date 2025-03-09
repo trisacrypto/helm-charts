@@ -276,12 +276,13 @@ storage:
         requests:
           storage: 32Gi
 
-# Specify the backup schedule for the node data
-# This backup schedule is the Fairwinds Gemini notation: https://github.com/FairwindsOps/gemini
-# Requires Fairwinds Gemini to be installed in the cluster
+# Specify the backup schedule for the node data PVC.
+# Requires Fairwinds Gemini to be installed in the cluster: https://github.com/FairwindsOps/gemini
 backups:
   enabled: false
+  # This snapshot class must be created during Fairwinds Gemini installation
   volumeSnapshotClassName: csi-snapshotclass
+  # This backup schedule uses Fairwinds Gemini notation
   schedule:
     - every: 2 hours
       keep: 12

@@ -90,7 +90,7 @@ regioninfo:
   enabled: true
   configMap: "region-info"
 
-replicaCount: 2
+replicaCount: 1
 
 # Define the ports to bind the envoy service(s) on. Note that this will also influence
 # the configuration of the node to bind to these ports as well so they only have to be
