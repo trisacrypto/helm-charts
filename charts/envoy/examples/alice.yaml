@@ -90,6 +90,8 @@ regioninfo:
   enabled: true
   configMap: "region-info"
 
+replicaCount: 1
+
 # Define the ports to bind the envoy service(s) on. Note that this will also influence
 # the configuration of the node to bind to these ports as well so they only have to be
 # defined once in this values file rather than multiple times.
@@ -157,3 +159,14 @@ volumeClaimTemplates:
     resources:
       requests:
         storage: 16Gi
+
+# Define backup schedule for the node data
+backups:
+  enabled: true
+  schedule:
+    - every: 20 minutes
+      keep: 3
+    - every: 2 hours
+      keep: 18
+    - every: day
+      keep: 14

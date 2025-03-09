@@ -372,152 +372,158 @@
                             ]
                         },
                         "identity": {
-                          "type": "object",
-                          "required": [],
-                          "properties": {
-                            "vaspName": {
-                              "type": "string",
-                              "default": "",
-                              "examples": [
-                                "Example VASP"
-                              ]
-                            },
-                            "lei": {
-                              "type": "string",
-                              "default": "",
-                              "examples": [
-                                "GTFZ00N6IHYMHHNT8S51"
-                              ]
+                            "type": "object",
+                            "required": [],
+                            "properties": {
+                                "vaspName": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "Example VASP"
+                                    ]
+                                },
+                                "lei": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "GTFZ00N6IHYMHHNT8S51"
+                                    ]
+                                }
                             }
-                          }
                         }
                     }
                 },
                 "sunrise": {
-                  "type": "object",
-                  "required": [],
-                  "properties": {
-                    "enabled": {
-                      "type": "string",
-                      "default": "false",
-                      "examples": [
-                        "true",
-                        "false"
-                      ]
-                    },
-                    "requireOTP": {
-                      "type": "string",
-                      "default": "false",
-                      "examples": [
-                        "true",
-                        "false"
-                      ]
+                    "type": "object",
+                    "required": [],
+                    "properties": {
+                        "enabled": {
+                            "type": "string",
+                            "default": "false",
+                            "examples": [
+                                "true",
+                                "false"
+                            ]
+                        },
+                        "requireOTP": {
+                            "type": "string",
+                            "default": "false",
+                            "examples": [
+                                "true",
+                                "false"
+                            ]
+                        }
                     }
-                  }
                 },
                 "email:": {
-                  "type": "object",
-                  "requried": [],
-                  "properties": {
-                    "sender": {
-                      "type": "object",
-                      "required": ["email"],
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "default": "",
-                          "examples": [
-                            "Compliance Team at VASP"
-                          ]
+                    "type": "object",
+                    "requried": [],
+                    "properties": {
+                        "sender": {
+                            "type": "object",
+                            "required": [
+                                "email"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "Compliance Team at VASP"
+                                    ]
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "compliance@example.com"
+                                    ]
+                                }
+                            }
                         },
-                        "email": {
-                          "type": "string",
-                          "default": "",
-                          "examples": [
-                            "compliance@example.com"
-                          ]
+                        "supportEmail": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "support@example.com",
+                                "VASP Support <support@example.com>"
+                            ]
+                        },
+                        "complianceEmail": {
+                            "type": "string",
+                            "default": "",
+                            "examples": [
+                                "compliance@example.com",
+                                "VASP Compliance <support@example.com>"
+                            ]
+                        },
+                        "smtp": {
+                            "type": "object",
+                            "required": [
+                                "host"
+                            ],
+                            "properties": {
+                                "host": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "smtp.example.com"
+                                    ]
+                                },
+                                "port": {
+                                    "type": "integer",
+                                    "default": 587,
+                                    "examples": [
+                                        587
+                                    ]
+                                },
+                                "username": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "smtpuser"
+                                    ]
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "smtppassword"
+                                    ]
+                                },
+                                "useCRAMMD5": {
+                                    "type": "string",
+                                    "default": "false",
+                                    "examples": [
+                                        "true",
+                                        "false"
+                                    ]
+                                },
+                                "poolSize": {
+                                    "type": "integer",
+                                    "default": 2,
+                                    "examples": [
+                                        2
+                                    ]
+                                }
+                            }
+                        },
+                        "sendgrid": {
+                            "type": "object",
+                            "required": [
+                                "apiKey"
+                            ],
+                            "properties": {
+                                "apiKey": {
+                                    "type": "string",
+                                    "default": "",
+                                    "examples": [
+                                        "SG.1234567890"
+                                    ]
+                                }
+                            }
                         }
-                      }
-                    },
-                    "supportEmail": {
-                      "type": "string",
-                      "default": "",
-                      "examples": [
-                        "support@example.com",
-                        "VASP Support <support@example.com>"
-                      ]
-                    },
-                    "complianceEmail": {
-                      "type": "string",
-                      "default": "",
-                      "examples": [
-                        "compliance@example.com",
-                        "VASP Compliance <support@example.com>"
-                      ]
-                    },
-                    "smtp": {
-                      "type": "object",
-                      "required": ["host"],
-                      "properties": {
-                        "host": {
-                          "type": "string",
-                          "default": "",
-                          "examples": [
-                            "smtp.example.com"
-                          ]
-                        },
-                        "port": {
-                          "type": "integer",
-                          "default": 587,
-                          "examples": [
-                            587
-                          ]
-                        },
-                        "username": {
-                          "type": "string",
-                          "default": "",
-                          "examples": [
-                            "smtpuser"
-                          ]
-                        },
-                        "password": {
-                          "type": "string",
-                          "default": "",
-                          "examples": [
-                            "smtppassword"
-                          ]
-                        },
-                        "useCRAMMD5": {
-                          "type": "string",
-                          "default": "false",
-                          "examples": [
-                            "true",
-                            "false"
-                          ]
-                        },
-                        "poolSize": {
-                          "type": "integer",
-                          "default": 2,
-                          "examples": [
-                            2
-                          ]
-                        }
-                      }
-                    },
-                    "sendgrid": {
-                      "type": "object",
-                      "required": ["apiKey"],
-                      "properties": {
-                        "apiKey": {
-                          "type": "string",
-                          "default": "",
-                          "examples": [
-                            "SG.1234567890"
-                          ]
-                        }
-                      }
                     }
-                  }
                 }
             }
         },
@@ -890,30 +896,30 @@
             }
         },
         "ipAllowList": {
-          "type": "object",
-          "required": [],
-          "properties": {
-            "enabled": {
-              "type": "boolean",
-              "default": false,
-              "examples": [
-                false,
-                true
-              ]
-            },
-            "sourceRange": {
-              "type": "array",
-              "default": [],
-              "items": {
-                "type": "string",
-                "default": "",
-                "examples": [
-                  "192.168.1.1",
-                  "192.168.1.0/24"
-                ]
-              }
+            "type": "object",
+            "required": [],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "examples": [
+                        false,
+                        true
+                    ]
+                },
+                "sourceRange": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "192.168.1.1",
+                            "192.168.1.0/24"
+                        ]
+                    }
+                }
             }
-          }
         },
         "resources": {
             "type": "object",
@@ -972,6 +978,51 @@
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "backups": {
+            "type": "object",
+            "required": [],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "examples": [
+                        false,
+                        true
+                    ]
+                },
+                "volumeSnapshotClassName": {
+                    "type": "string",
+                    "default": "csi-snapshotclass",
+                    "examples": [
+                        "csi-snapshotclass"
+                    ]
+                },
+                "schedule": {
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "object",
+                        "required": [],
+                        "properties": {
+                            "every": {
+                                "type": "string",
+                                "default": "2 hours",
+                                "examples": [
+                                    "2 hours"
+                                ]
+                            },
+                            "keep": {
+                                "type": "integer",
+                                "default": 12,
+                                "examples": [
+                                    12
+                                ]
                             }
                         }
                     }
