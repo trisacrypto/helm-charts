@@ -84,4 +84,4 @@ This has the benefit of allowing you to have helm manage the certificate but wil
 
 ## Ingresses
 
-Envoy requires a TLS passthrough ingress in order to operate correctly. Right now the only ingresses supported by this chart are the `traefik.containo.us/v1alpha1` `IngressRoute` and `IngressRouteTCP` classes. Please submit a pull request if other ingresses need to be supported.
+Envoy requires a TLS passthrough ingress in order to operate correctly. Right now the only ingresses supported by this chart are the `traefik.io/v1alpha1` `IngressRoute` and `IngressRouteTCP` classes. Please submit a pull request if other ingresses need to be supported.
