@@ -1,0 +1,21 @@
+{{- if .Values.backups.enabled }}
+{{- $root := . }}
+{{- range $k, $v := until (atoi (quote  .Values.replicaCount) | default 1) }}
+{{- if ne $v 0 }}
+---
+{{- end }}
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: {{ include "envoy.name" $root }}-snapshot
+  namespace: {{ $root.Release.Namespace }}
+spec:
+  persistentVolumeClaim:
+    claimName: {{ include "envoy.name" $root }}-data-{{- include "envoy.name" $root }}-{{ $v }}
+  schedule:
+    {{- toYaml $root.Values.backups.schedule | nindent 2 }}
+  template:
+    spec:
+      volumeSnapshotClassName: {{ $root.Values.backups.volumeSnapshotClassName }}
+{{- end }}
+{{- end }}
