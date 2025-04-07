@@ -294,16 +294,16 @@
                             "type": "string",
                             "default": "",
                             "examples": [
-                                "api.trisatest.net:443",
-                                "api.vaspdirectory.net:443"
+                                "api.testnet.directory:443",
+                                "api.trisa.directory:443"
                             ]
                         },
                         "membersEndpoint": {
                             "type": "string",
                             "default": "",
                             "examples": [
-                                "members.trisatest.net:443",
-                                "members.vaspdirectory.net:443"
+                                "members.testnet.directory:443",
+                                "members.trisa.directory:443"
                             ]
                         },
                         "syncEnabled": {

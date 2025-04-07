@@ -8,7 +8,7 @@ For more information please visit [Envoy's developer documentation](https://tris
 
 Prerequisites:
 
-1. You've applied for and recieved [TRISA certificates](https://trisa.io) from [vaspdirectory.net](https://vaspdirectory.net)
+1. You've applied for and recieved [TRISA certificates](https://trisa.io) from [trisa.directory](https://trisa.directory)
 2. You've decrypted your certificates using your PKCS12 password
 3. You've provisioned the DNS names specified in the certificates
 

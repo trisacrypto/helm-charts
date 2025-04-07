@@ -30,10 +30,10 @@ Create environment definition as used by the chart labels.
 {{- define "envoy.trisaLabels" -}}
 {{- if .Values.isTestnet -}}
 trisa.dev/network: testnet
-trisa.dev/directory: {{ default "trisatest.net" .Values.directory }}
+trisa.dev/directory: {{ default "testnet.directory" .Values.directory }}
 {{- else -}}
 trisa.dev/network: mainnet
-trisa.dev/directory: {{ default "vaspdirectory.net" .Values.directory }}
+trisa.dev/directory: {{ default "trisa.directory" .Values.directory }}
 {{- end }}
 {{- if .Values.environment }}
 trisa.dev/environment: {{ .Values.environment }}

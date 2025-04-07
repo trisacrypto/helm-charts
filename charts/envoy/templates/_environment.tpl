@@ -104,9 +104,9 @@ If the web auth cookie domain isn't specified, compute it from the origin
 {{ .Values.trisa.directory.endpoint }}
 {{- else -}}
 {{- if .Values.isTestnet -}}
-api.trisatest.net:443
+api.testnet.directory:443
 {{- else -}}
-api.vaspdirectory.net:443
+api.trisa.directory:443
 {{- end -}}
 {{- end -}}
 {{- end -}}
@@ -119,9 +119,9 @@ If the web auth cookie domain isn't specified, compute it from the origin
 {{ .Values.trisa.directory.membersEndpoint }}
 {{- else -}}
 {{- if .Values.isTestnet -}}
-members.trisatest.net:443
+members.testnet.directory:443
 {{- else -}}
-members.vaspdirectory.net:443
+members.trisa.directory:443
 {{- end -}}
 {{- end -}}
 {{- end -}}
