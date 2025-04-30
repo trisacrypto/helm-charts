@@ -164,6 +164,8 @@ env:
     value: {{ .Values.trisa.webhookURL | quote }}
   - name: TRISA_ENDPOINT
     value: {{ .Values.trisa.endpoint | quote }}
+  - name: TRISA_SEARCH_THRESHOLD
+    value: {{ .Values.trisa.searchThreshold | quote }}
   - name: TRISA_TRP_ENDPOINT
     value: {{ .Values.trisa.trp.endpoint | quote }}
   - name: TRISA_WEB_ENABLED
