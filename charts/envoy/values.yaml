@@ -63,6 +63,11 @@ trisa:
   # connect to this service. If ingresses are enabled, it must match the ingress route.
   endpoint: ""
 
+  # Similarity threshold for increasing the strictness of matches in counterparty
+  # fuzzy searches. Should be a value between 0.0 and 1.0 where 0.0 allows any fuzzy
+  # match to be returned and 1.0 requires an exact match to be returned.
+  searchThreshold: 0.0
+
   web:
     enabled: "true"
     apiEnabled: "true"
