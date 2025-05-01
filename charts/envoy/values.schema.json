@@ -114,13 +114,6 @@
                         "sqlite:////data/db/envoy.db"
                     ]
                 },
-                "webhookURL": {
-                    "type": "string",
-                    "default": "",
-                    "examples": [
-                        "https://example.com/trisa-callback"
-                    ]
-                },
                 "endpoint": {
                     "type": "string",
                     "default": "",
@@ -136,6 +129,40 @@
                     "examples": [
                         "0.0", "0.25", "0.50", "0.75", "1.0"
                     ]
+                },
+                "webhook": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "https://webhook.example.com/callback"
+                        ]
+                      },
+                      "authKeyID": {
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "01J2CNH46JHE3TQ8N7MXKK9X9G"
+                        ]
+                      },
+                      "authKeySecret": {
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "2f3817f20457020e30f936b57e49769a41082dde6e30dae20a3780880fb271ad"
+                        ]
+                      },
+                      "requireServerAuth": {
+                        "type": "boolean",
+                        "default": false,
+                        "examples": [
+                            false,
+                            true
+                        ]
+                      }
+                    }
                 },
                 "web": {
                     "type": "object",

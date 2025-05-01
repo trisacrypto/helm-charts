@@ -160,14 +160,24 @@ env:
     value: {{ .Values.trisa.consoleLog | quote }}
   - name: TRISA_DATABASE_URL
     value: {{ .Values.trisa.databaseURL | quote }}
-  - name: TRISA_WEBHOOK_URL
-    value: {{ .Values.trisa.webhookURL | quote }}
   - name: TRISA_ENDPOINT
     value: {{ .Values.trisa.endpoint | quote }}
   - name: TRISA_SEARCH_THRESHOLD
     value: {{ .Values.trisa.searchThreshold | quote }}
   - name: TRISA_TRP_ENDPOINT
     value: {{ .Values.trisa.trp.endpoint | quote }}
+  {{- if .Values.trisa.webhook.url }}
+  - name: TRISA_WEBHOOK_URL
+    value: {{ .Values.trisa.webhook.url | quote }}
+  {{- if and .Values.trisa.webhook.authKeyID .Values.trisa.webhook.authKeySecret }}
+  - name: TRISA_WEBHOOK_AUTH_KEY_ID
+    value: {{ .Values.trisa.webhook.authKeyID | quote }}
+  - name: TRISA_WEBHOOK_AUTH_KEY_SECRET
+    value: {{ .Values.trisa.webhook.authKeySecret | quote }}
+  - name: TRISA_WEBHOOK_AUTH_REQUIRE_SERVER_AUTH
+    value: {{ .Values.trisa.webhook.requireServerAuth | quote }}
+  {{- end }}
+  {{- end }}
   - name: TRISA_WEB_ENABLED
     value: {{ .Values.trisa.web.enabled | quote }}
   - name: TRISA_WEB_API_ENABLED
