@@ -55,9 +55,6 @@ trisa:
   # The database url must point to a volumeMount for the node data pvc
   databaseURL: "sqlite:////data/db/envoy.db"
 
-  # A webhook url for the node to callback to when an incoming message is received
-  webhookURL: ""
-
   # Required: user must populate this value!
   # Endpoint must include the hostname:port as it is defined for external users to
   # connect to this service. If ingresses are enabled, it must match the ingress route.
@@ -67,6 +64,13 @@ trisa:
   # fuzzy searches. Should be a value between 0.0 and 1.0 where 0.0 allows any fuzzy
   # match to be returned and 1.0 requires an exact match to be returned.
   searchThreshold: 0.0
+
+  # Webhook configuration for the node to callback when an incoming message is received
+  webhook:
+    url: ""
+    authKeyID: ""
+    authKeySecret: ""
+    requireServerAuth: false
 
   web:
     enabled: "true"

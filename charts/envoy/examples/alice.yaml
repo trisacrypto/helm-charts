@@ -39,6 +39,13 @@ trisa:
   # connect to this service. If ingresses are enabled, it must match the ingress route.
   endpoint: "api.alice.vaspbot.net:443"
 
+  searchThreshold: 0.25
+
+  webhook:
+    url: "https://alice.us/envoy/callback"
+    authKeyID: "notarealkeyid"
+    authKeySecret: "notarealsecret"
+
   web:
     enabled: "true"
     apiEnabled: "true"
