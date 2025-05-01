@@ -162,8 +162,10 @@ env:
     value: {{ .Values.trisa.databaseURL | quote }}
   - name: TRISA_ENDPOINT
     value: {{ .Values.trisa.endpoint | quote }}
+  {{- if .Values.trisa.searchThreshold }}
   - name: TRISA_SEARCH_THRESHOLD
     value: {{ .Values.trisa.searchThreshold | quote }}
+  {{- end }}
   - name: TRISA_TRP_ENDPOINT
     value: {{ .Values.trisa.trp.endpoint | quote }}
   {{- if .Values.trisa.webhook.url }}
@@ -174,7 +176,7 @@ env:
     value: {{ .Values.trisa.webhook.authKeyID | quote }}
   - name: TRISA_WEBHOOK_AUTH_KEY_SECRET
     value: {{ .Values.trisa.webhook.authKeySecret | quote }}
-  - name: TRISA_WEBHOOK_AUTH_REQUIRE_SERVER_AUTH
+  - name: TRISA_WEBHOOK_REQUIRE_SERVER_AUTH
     value: {{ .Values.trisa.webhook.requireServerAuth | quote }}
   {{- end }}
   {{- end }}
