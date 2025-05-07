@@ -76,6 +76,7 @@ trisa:
     enabled: "true"
     apiEnabled: "true"
     uiEnabled: "true"
+    daybreakEnabled: "false"
 
     # If left blank, the bindAddr will be computed based on the web service port
     bindAddr: ""
