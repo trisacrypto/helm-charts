@@ -206,6 +206,10 @@ env:
     value: {{ .Values.trisa.web.auth.refreshTokenTTL | quote }}
   - name: TRISA_WEB_AUTH_TOKEN_OVERLAP
     value: {{ .Values.trisa.web.auth.tokenOverlap | quote }}
+  {{- if .Values.trisa.web.daybreakEnabled }}
+  - name: TRISA_WEB_DAYBREAK_ENABLED
+    value: {{ .Values.trisa.web.daybreakEnabled | quote }}
+  {{- end }}
   - name: TRISA_NODE_ENABLED
     value: {{ .Values.trisa.node.enabled | quote }}
   - name: TRISA_NODE_BIND_ADDR

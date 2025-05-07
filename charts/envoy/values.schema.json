@@ -194,6 +194,14 @@
                                 "false"
                             ]
                         },
+                        "daybreakEnabled": {
+                            "type": "string",
+                            "default": "false",
+                            "examples": [
+                                "true",
+                                "false"
+                            ]
+                        },
                         "bindAddr": {
                             "type": "string",
                             "default": "",
