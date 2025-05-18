@@ -20,3 +20,15 @@ trisacrypto` to see the charts.
 ## Available Charts
 
 - [Envoy](charts/envoy/README.md)
+
+## Debugging Templates
+
+- Use `helm lint` to ensure your chart follows best practices.
+- Use `helm template --debug` to render chart templates locally
+- Use `helm install --dry-run --debug` to render chart locally without installing certs in the cluster, setting `--dry-run=server` will also perform any lookups on the server.
+
+For example, to debug the envoy charts; in the `charts/envoy` directory, run:
+
+```
+$ helm template --debug envoy . --values examples/alice.yaml
+```

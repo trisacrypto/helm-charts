@@ -47,10 +47,10 @@ certificate:
 # configuration options, please see https://trisa.dev/envoy/configuration/index.html
 # These values are mounted into each pod as an environment variable.
 trisa:
-  maintenance: "false"
+  maintenance: false
   mode: release
   logLevel: info
-  consoleLog: "false"
+  consoleLog: false
 
   # The database url must point to a volumeMount for the node data pvc
   databaseURL: "sqlite:////data/db/envoy.db"
@@ -68,15 +68,28 @@ trisa:
   # Webhook configuration for the node to callback when an incoming message is received
   webhook:
     url: ""
+
+    # If true, the webhook client will configure mTLS using the certs provided below
+    useMTLS: false
+
+    # These paths must point to locations from the envoy-certs volume mount
+    # if useMTLS is true and these are empty then the TRISA certs are used
+    # Note: to use non-TRISA webhook certs, you must specify your own envoy certs secret
+    pool: ""
+    certs: ""
+
+    # The following configures HMAC-SHA256 authentication for the webhook similar to
+    # AWS and HAWK authentication. The key ID and the secret must be shared between the
+    # client and the webhook server.
     authKeyID: ""
     authKeySecret: ""
     requireServerAuth: false
 
   web:
-    enabled: "true"
-    apiEnabled: "true"
-    uiEnabled: "true"
-    daybreakEnabled: "false"
+    enabled: true
+    apiEnabled: true
+    uiEnabled: true
+    daybreakEnabled: false
 
     # If left blank, the bindAddr will be computed based on the web service port
     bindAddr: ""
@@ -104,12 +117,13 @@ trisa:
       tokenOverlap: "-15m"
 
   node:
-    enabled: "true"
+    enabled: true
 
     # If left blank, the bindAddr will be computed based on the grpc service port
     bindAddr: ""
 
     # These paths must point to locations from the envoy-certs volume mount
+    # Configure these values if you've created your own secret for the envoy certs
     pool: ""
     certs: ""
 
@@ -117,14 +131,14 @@ trisa:
     keyExchangeCacheTTL: "24h"
 
   directory:
-    insecure: "false"    # Only used for development!
+    insecure: false      # Only used for development!
     endpoint: ""         # If left blank, this is determined by the isTestnet flag
     membersEndpoint: ""  # If left blank, this is determined by the isTestnet flag
-    syncEnabled: "true"
+    syncEnabled: true
     syncInterval: "6h"
 
   trp:
-    enabled: "true"
+    enabled: false
 
     # If left blank, the bindAddr will be computed based off the trp service port
     bindAddr: ""
@@ -134,10 +148,11 @@ trisa:
     endpoint: ""
 
     # If true, the TRP server will require mTLS using the certs provided below
-    useMTLS: "true"
+    useMTLS: false
 
     # These paths must point to locations from the envoy-certs volume mount
     # if useMTLS is true and these are empty then the TRISA certs are used
+    # Note: to use TRP certs, you must specify your own envoy certs secret
     pool: ""
     certs: ""
 
@@ -152,12 +167,12 @@ trisa:
   sunrise:
     # For sunrise to work it needs to be enabled and there needs to be a valid email
     # configuration set so that sunrise emails can be sent.
-    enabled: "false"
+    enabled: false
 
     # OTP requires a secondary verification using a one-time password sent to the email
     # address of the contact the sunrise message was sent to. Disable to only use the
     # verification token method.
-    requireOTP: "false"
+    requireOTP: false
 
   # The email configuration allows envoy to send emails via SendGrid or SMTP.
   # A valid email configuration is required for sunrise to work.
@@ -179,7 +194,7 @@ trisa:
       port: 587
       username: ""
       password: ""
-      useCRAMMD5: "false"
+      useCRAMMD5: false
       poolSize: 2
 
     sendgrid:
