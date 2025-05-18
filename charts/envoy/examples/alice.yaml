@@ -31,7 +31,7 @@ certificate:
 # configuration options, please see https://trisa.dev/envoy/configuration/index.html
 # These values are mounted into each pod as an environment variable.
 trisa:
-  maintenance: "false"
+  maintenance: false
   logLevel: info
 
   # Required: user must populate this value!
@@ -43,13 +43,18 @@ trisa:
 
   webhook:
     url: "https://alice.us/envoy/callback"
+
+    useMTLS: true
+    certs: /data/certs/webhook.pem
+    pool: /data/certs/webhook.pool.pem
+
     authKeyID: "notarealkeyid"
     authKeySecret: "notarealsecret"
 
   web:
-    enabled: "true"
-    apiEnabled: "true"
-    uiEnabled: "true"
+    enabled: true
+    apiEnabled: true
+    uiEnabled: true
 
     # Required: user must populate this value!
     # Set to the full URL of the web UI which should match the ingress route
@@ -65,16 +70,16 @@ trisa:
       tokenOverlap: "-15m"
 
   node:
-    enabled: "true"
+    enabled: true
 
   trp:
-    enabled: "true"
+    enabled: true
     endpoint: "https://trp.alice.vaspbot.net/"
-    useMTLS: "false"
+    useMTLS: false
 
   sunrise:
-    enabled: "true"
-    requireOTP: "false"
+    enabled: true
+    requireOTP: false
 
   email:
     sender:

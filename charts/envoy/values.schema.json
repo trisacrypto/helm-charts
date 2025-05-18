@@ -70,12 +70,8 @@
             ],
             "properties": {
                 "maintenance": {
-                    "type": "string",
-                    "default": "false",
-                    "examples": [
-                        "false",
-                        "true"
-                    ]
+                    "type": "boolean",
+                    "default": false
                 },
                 "mode": {
                     "type": "string",
@@ -100,12 +96,8 @@
                     ]
                 },
                 "consoleLog": {
-                    "type": "string",
-                    "default": "false",
-                    "examples": [
-                        "false",
-                        "true"
-                    ]
+                    "type": "boolean",
+                    "default": false
                 },
                 "databaseURL": {
                     "type": "string",
@@ -140,6 +132,28 @@
                             "https://webhook.example.com/callback"
                         ]
                       },
+                      "useMTLS": {
+                        "type": "boolean",
+                        "default": false,
+                        "examples": [
+                            false,
+                            true
+                        ]
+                      },
+                      "pool": {
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "path/to/pool.pem"
+                        ]
+                      },
+                      "certs": {
+                        "type": "string",
+                        "default": "",
+                        "examples": [
+                            "path/to/certs.pem"
+                        ]
+                      },
                       "authKeyID": {
                         "type": "string",
                         "default": "",
@@ -171,35 +185,35 @@
                     ],
                     "properties": {
                         "enabled": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "apiEnabled": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "uiEnabled": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "daybreakEnabled": {
-                            "type": "string",
-                            "default": "false",
+                            "type": "boolean",
+                            "default": false,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "bindAddr": {
@@ -285,11 +299,11 @@
                     "required": [],
                     "properties": {
                         "enabled": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "bindAddr": {
@@ -327,11 +341,11 @@
                     "required": [],
                     "properties": {
                         "insecure": {
-                            "type": "string",
-                            "default": "false",
+                            "type": "boolean",
+                            "default": false,
                             "examples": [
-                                "false",
-                                "true"
+                                false,
+                                true
                             ]
                         },
                         "endpoint": {
@@ -351,11 +365,11 @@
                             ]
                         },
                         "syncEnabled": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "syncInterval": {
@@ -372,11 +386,11 @@
                     "required": [],
                     "properties": {
                         "enabled": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "bindAddr": {
@@ -394,11 +408,11 @@
                             ]
                         },
                         "useMTLS": {
-                            "type": "string",
-                            "default": "true",
+                            "type": "boolean",
+                            "default": true,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "pool": {
@@ -442,19 +456,19 @@
                     "required": [],
                     "properties": {
                         "enabled": {
-                            "type": "string",
-                            "default": "false",
+                            "type": "boolean",
+                            "default": false,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         },
                         "requireOTP": {
-                            "type": "string",
-                            "default": "false",
+                            "type": "boolean",
+                            "default": false,
                             "examples": [
-                                "true",
-                                "false"
+                                true,
+                                false
                             ]
                         }
                     }
@@ -536,11 +550,11 @@
                                     ]
                                 },
                                 "useCRAMMD5": {
-                                    "type": "string",
-                                    "default": "false",
+                                    "type": "boolean",
+                                    "default": false,
                                     "examples": [
-                                        "true",
-                                        "false"
+                                        true,
+                                        false
                                     ]
                                 },
                                 "poolSize": {
@@ -577,11 +591,7 @@
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "default": false,
-                    "examples": [
-                        false,
-                        true
-                    ]
+                    "default": false
                 },
                 "configMap": {
                     "type": "string",
@@ -592,11 +602,7 @@
                 },
                 "install": {
                     "type": "boolean",
-                    "default": false,
-                    "examples": [
-                        false,
-                        true
-                    ]
+                    "default": false
                 },
                 "info": {
                     "type": "object",
@@ -789,11 +795,7 @@
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "default": false,
-                    "examples": [
-                        false,
-                        true
-                    ]
+                    "default": false
                 },
                 "web": {
                     "type": "object",
@@ -945,11 +947,7 @@
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "default": false,
-                    "examples": [
-                        false,
-                        true
-                    ]
+                    "default": false
                 },
                 "sourceRange": {
                     "type": "array",
@@ -1034,11 +1032,7 @@
             "properties": {
                 "enabled": {
                     "type": "boolean",
-                    "default": false,
-                    "examples": [
-                        false,
-                        true
-                    ]
+                    "default": false
                 },
                 "volumeSnapshotClassName": {
                     "type": "string",

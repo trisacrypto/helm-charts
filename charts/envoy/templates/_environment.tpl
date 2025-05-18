@@ -171,6 +171,16 @@ env:
   {{- if .Values.trisa.webhook.url }}
   - name: TRISA_WEBHOOK_URL
     value: {{ .Values.trisa.webhook.url | quote }}
+  - name: TRISA_WEBHOOK_USE_MTLS
+    value: {{ .Values.trisa.webhook.useMTLS | quote }}
+  {{- if and .Values.trisa.webhook.useMTLS .Values.trisa.webhook.certs }}
+  - name: TRISA_WEBHOOK_CERTS
+    value: {{ .Values.trisa.webhook.certs | quote }}
+  - name: TRISA_WEBHOOK_POOL
+    value: {{ .Values.trisa.webhook.pool | quote }}
+  {{- end }}
+  {{- if .Values.trisa.webhook.authKeyID }}
+  {{- end }}
   {{- if and .Values.trisa.webhook.authKeyID .Values.trisa.webhook.authKeySecret }}
   - name: TRISA_WEBHOOK_AUTH_KEY_ID
     value: {{ .Values.trisa.webhook.authKeyID | quote }}
@@ -232,18 +242,22 @@ env:
     value: {{ .Values.trisa.directory.syncInterval | quote }}
   - name: TRISA_TRP_ENABLED
     value: {{ .Values.trisa.trp.enabled | quote }}
+  {{- if .Values.trisa.trp.enabled }}
   - name: TRISA_TRP_BIND_ADDR
     value: {{ include "envoy.trpBindAddr" . | quote }}
   - name: TRISA_TRP_USE_MTLS
     value: {{ .Values.trisa.trp.useMTLS | quote }}
+  {{- if and .Values.trisa.trp.useMTLS .Values.trisa.trp.certs }}
   - name: TRISA_TRP_POOL
     value: {{ .Values.trisa.trp.pool | quote }}
   - name: TRISA_TRP_CERTS
     value: {{ .Values.trisa.trp.certs | quote }}
+  {{- end }}
   - name: TRISA_TRP_IDENTITY_VASP_NAME
     value: {{ .Values.trisa.trp.identity.vaspName | quote }}
   - name: TRISA_TRP_IDENTITY_LEI
     value: {{ .Values.trisa.trp.identity.lei | quote }}
+  {{- end }}
   - name: TRISA_SUNRISE_ENABLED
     value: {{ .Values.trisa.sunrise.enabled | quote }}
   - name: TRISA_SUNRISE_REQUIRE_OTP
