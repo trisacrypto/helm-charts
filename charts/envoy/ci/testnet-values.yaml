@@ -33,7 +33,7 @@ certificate:
 # configuration options, please see https://trisa.dev/envoy/configuration/index.html
 # These values are mounted into each pod as an environment variable.
 trisa:
-  maintenance: "false"
+  maintenance: false
   logLevel: info
 
   # Required: user must populate this value!
@@ -42,9 +42,9 @@ trisa:
   endpoint: "trisa.testnet.alice.vaspbot.net:443"
 
   web:
-    enabled: "true"
-    apiEnabled: "true"
-    uiEnabled: "true"
+    enabled: true
+    apiEnabled: true
+    uiEnabled: true
 
     # Required: user must populate this value!
     # Set to the full URL of the web UI which should match the ingress route
@@ -60,15 +60,15 @@ trisa:
       tokenOverlap: "-15m"
 
   node:
-    enabled: "true"
+    enabled: true
 
   directory:
-    syncEnabled: "false"
+    syncEnabled: false
 
   trp:
-    enabled: "true"
+    enabled: true
     endpoint: "https://trp.testnet.alice.vaspbot.net/"
-    useMTLS: "false"
+    useMTLS: false
 
 # Because TRISA is a globally distributed system, region deployment information is
 # useful information on the node. This information can be provided via config map or
