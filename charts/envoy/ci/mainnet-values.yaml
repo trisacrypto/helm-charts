@@ -42,6 +42,8 @@ trisa:
   # connect to this service. If ingresses are enabled, it must match the ingress route.
   endpoint: "trisa.alice.vaspbot.net:443"
 
+  tsp: blockpass.org
+
   web:
     enabled: true
     apiEnabled: true
@@ -50,6 +52,8 @@ trisa:
     # Required: user must populate this value!
     # Set to the full URL of the web UI which should match the ingress route
     origin: "https://alice.vaspbot.net"
+
+    logoURI: https://alice.vaspbot.net/static/img/logo.webp
 
     auth:
       # Optional: specify keys for generating JWT tokens (random ones will be generated if blank)

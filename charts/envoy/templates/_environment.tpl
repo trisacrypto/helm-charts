@@ -200,10 +200,21 @@ env:
     value: {{ include "envoy.webBindAddr" . | quote }}
   - name: TRISA_WEB_ORIGIN
     value: {{ .Values.trisa.web.origin | quote }}
+  {{- if .Values.trisa.web.docsName }}
   - name: TRISA_WEB_DOCS_NAME
     value: {{ .Values.trisa.web.docsName | quote }}
+  {{- end }}
+  {{- if .Values.trisa.web.logoURI }}
+  - name: TRISA_WEB_LOGO_URI
+    value: {{ .Values.trisa.web.logoURI | quote }}
+  {{- else if eq .Values.trisa.tsp "blockpass.org" }}
+  - name: TRISA_WEB_LOGO_URI
+    value: "/static/img/blockpass-logo.webp"
+  {{- end }}
+  {{- if .Values.trisa.web.auth.keys }}
   - name: TRISA_WEB_AUTH_KEYS
-    value: ""
+    value: {{ .Values.trisa.web.auth.keys | quote }}
+  {{- end }}
   - name: TRISA_WEB_AUTH_AUDIENCE
     value: {{ include "envoy.webAudience" . | quote }}
   - name: TRISA_WEB_AUTH_ISSUER

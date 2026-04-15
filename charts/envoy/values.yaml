@@ -65,6 +65,11 @@ trisa:
   # match to be returned and 1.0 requires an exact match to be returned.
   searchThreshold: 0.0
 
+  # TSP refers to the "TRISA Service Provider", and setting this to a valid TSP changes
+  # some of the deployment behavior and configuration. Most users should simply leave
+  # this blank as it is specific to the TSP.
+  tsp: ""
+
   # Webhook configuration for the node to callback when an incoming message is received
   webhook:
     url: ""
@@ -101,6 +106,11 @@ trisa:
     # Set the server name in the Swagger API Docs
     # By default the display name of the server is used.
     docsName: ""
+
+    # Set a custom logo URI for the web UI
+    # Note: this must be a valid URL to an image file on a CDN.
+    # If this is set, it overrides the tsp logo defined below.
+    logoURI: ""
 
     auth:
       # Optional: specify keys for generating JWT tokens (random ones will be generated if blank)
