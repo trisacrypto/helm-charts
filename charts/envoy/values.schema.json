@@ -122,6 +122,10 @@
                         "0.0", "0.25", "0.50", "0.75", "1.0"
                     ]
                 },
+                "regenerateTravelAddresses": {
+                    "type": "boolean",
+                    "default": false
+                },
                 "tsp": {
                     "type": "string",
                     "default": "",

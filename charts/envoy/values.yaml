@@ -70,6 +70,9 @@ trisa:
   # this blank as it is specific to the TSP.
   tsp: ""
 
+  # Set to true to cause travel addresses to be regenerated when Envoy starts.
+  regenerateTravelAddresses: false
+
   # Webhook configuration for the node to callback when an incoming message is received
   webhook:
     url: ""

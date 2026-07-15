@@ -162,12 +162,14 @@ env:
     value: {{ .Values.trisa.databaseURL | quote }}
   - name: TRISA_ENDPOINT
     value: {{ .Values.trisa.endpoint | quote }}
+  - name: TRISA_TRP_ENDPOINT
+    value: {{ .Values.trisa.trp.endpoint | quote }}
   {{- if .Values.trisa.searchThreshold }}
   - name: TRISA_SEARCH_THRESHOLD
     value: {{ .Values.trisa.searchThreshold | quote }}
   {{- end }}
-  - name: TRISA_TRP_ENDPOINT
-    value: {{ .Values.trisa.trp.endpoint | quote }}
+  - name: TRISA_BOOT_REGENERATE_TRAVEL_ADDRESSES
+    value: {{ .Values.trisa.regenerateTravelAddresses | quote }}
   {{- if .Values.trisa.webhook.url }}
   - name: TRISA_WEBHOOK_URL
     value: {{ .Values.trisa.webhook.url | quote }}
