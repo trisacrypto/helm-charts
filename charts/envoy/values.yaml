@@ -231,6 +231,7 @@ regioninfo:
     name: ""
     country: ""
     cloud: ""
+    zone: ""
     cluster: ""
   annotations: {}
 
