@@ -1,6 +1,6 @@
 dependencies:
 - name: regioninfo
   repository: file://../regioninfo
-  version: 1.1.0
-digest: sha256:b4b086cdf00c05dc456c8128677cafed598a576382fbc819970503831d3c6aac
-generated: "2026-10-15T08:29:22.967988-05:00"
+  version: 1.1.2
+digest: sha256:98b52ef59e89718a6568d2a98e5feca3c1d50860288978fc8566b30b9c362bbe
+generated: "2026-10-21T10:38:24.397569-05:00"

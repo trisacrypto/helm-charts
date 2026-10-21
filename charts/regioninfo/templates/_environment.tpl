@@ -1,5 +1,5 @@
 {{- define "regioninfo.environment" -}}
-{{- $configMap := default "region-info" .Values.regioninfo.configMap }}
+{{- $configMap := default "region-info" .Values.regioninfo.configMap -}}
 - name: REGION_INFO_ID
   valueFrom:
     configMapKeyRef:
