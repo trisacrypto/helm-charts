@@ -3,6 +3,28 @@ entries:
   daybreak:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2026-10-21T15:53:35.058176097Z"
+    dependencies:
+    - name: regioninfo
+      repository: file://../regioninfo
+      version: ~1.1
+    description: Management system for counterparty email addresses used for the Sunrise
+      protocol.
+    digest: cff48c1e6028f7a6e5cddf129ce439e182b7b6b037c71e66d24d603dada04e7d
+    home: https://daybreak.travelrule.directory
+    icon: https://daybreak.travelrule.directory/favicon.png
+    maintainers:
+    - email: support@rotational.io
+      name: Rotational Labs
+    name: daybreak
+    sources:
+    - https://github.com/trisacrypto/daybreak
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/daybreak-0.1.1/daybreak-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2026-10-21T15:36:03.903281741Z"
     dependencies:
     - name: regioninfo
@@ -24,6 +46,29 @@ entries:
     - https://github.com/trisacrypto/helm-charts/releases/download/daybreak-0.1.0/daybreak-0.1.0.tgz
     version: 0.1.0
   envoy:
+  - apiVersion: v2
+    appVersion: v1.6.0
+    created: "2026-10-21T15:53:35.320059893Z"
+    dependencies:
+    - name: regioninfo
+      repository: file://../regioninfo
+      version: ~1.1
+    description: An open source TRISA/TRP node for use in Travel Rule information
+      transfers.
+    digest: f85dfaf9417f2011f72772bcd8611d1d695f5ad5757c01c4350fa7fe910bc0fe
+    home: https://trisa.dev
+    icon: https://trisa.dev/favicon.png
+    maintainers:
+    - email: support@rotational.io
+      name: Rotational Labs
+    name: envoy
+    sources:
+    - https://github.com/trisacrypto/envoy
+    - https://github.com/trisacrypto/trisa
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/envoy-1.6.2/envoy-1.6.2.tgz
+    version: 1.6.2
   - apiVersion: v2
     appVersion: v1.6.0
     created: "2026-10-15T15:23:38.635297815Z"
@@ -997,6 +1042,22 @@ entries:
     version: 0.1.0
   regioninfo:
   - apiVersion: v2
+    created: "2026-10-21T15:53:35.485762208Z"
+    description: Adds region information to the cluster for geographic debugging
+    digest: e4a5bd5cf16fbb35960df6b16ffd6805d70c29f2bdeb5fb415cb05a97a93b838
+    home: https://trisa.dev
+    icon: https://trisa.dev/favicon.png
+    maintainers:
+    - email: support@rotational.io
+      name: Rotational Labs
+    name: regioninfo
+    sources:
+    - https://github.com/trisacrypto/helm-charts
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/regioninfo-1.1.2/regioninfo-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2026-10-21T15:36:04.273405451Z"
     description: Adds region information to the cluster for geographic debugging
     digest: 0b9fa958fc6637497f9286dbf87fb2278e20360a9c82bcf8bfd8f9ab47ad4b54
@@ -1028,4 +1089,4 @@ entries:
     urls:
     - https://github.com/trisacrypto/helm-charts/releases/download/regioninfo-1.1.0/regioninfo-1.1.0.tgz
     version: 1.1.0
-generated: "2026-10-21T15:36:04.273544168Z"
+generated: "2026-10-21T15:53:35.486269647Z"
