@@ -1,5 +1,28 @@
 apiVersion: v1
 entries:
+  daybreak:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2026-10-21T15:36:03.903281741Z"
+    dependencies:
+    - name: regioninfo
+      repository: file://../regioninfo
+      version: ~1.1
+    description: Management system for counterparty email addresses used for the Sunrise
+      protocol.
+    digest: bcbc103eca81d8e7a88bf6ca7b6be98839bdf6e81e70ebe4d9b09be9948b3e58
+    home: https://daybreak.travelrule.directory
+    icon: https://daybreak.travelrule.directory/favicon.png
+    maintainers:
+    - email: support@rotational.io
+      name: Rotational Labs
+    name: daybreak
+    sources:
+    - https://github.com/trisacrypto/daybreak
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/daybreak-0.1.0/daybreak-0.1.0.tgz
+    version: 0.1.0
   envoy:
   - apiVersion: v2
     appVersion: v1.6.0
@@ -974,6 +997,22 @@ entries:
     version: 0.1.0
   regioninfo:
   - apiVersion: v2
+    created: "2026-10-21T15:36:04.273405451Z"
+    description: Adds region information to the cluster for geographic debugging
+    digest: 0b9fa958fc6637497f9286dbf87fb2278e20360a9c82bcf8bfd8f9ab47ad4b54
+    home: https://trisa.dev
+    icon: https://trisa.dev/favicon.png
+    maintainers:
+    - email: support@rotational.io
+      name: Rotational Labs
+    name: regioninfo
+    sources:
+    - https://github.com/trisacrypto/helm-charts
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/regioninfo-1.1.1/regioninfo-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
     created: "2026-10-15T15:23:38.859334469Z"
     description: Adds region information to the cluster for geographic debugging
     digest: 5bf3d9b56bd22095f093633d444a1751f5a18f115740f6d122c3b1236cbd6b59
@@ -989,4 +1028,4 @@ entries:
     urls:
     - https://github.com/trisacrypto/helm-charts/releases/download/regioninfo-1.1.0/regioninfo-1.1.0.tgz
     version: 1.1.0
-generated: "2026-10-15T15:23:38.859556186Z"
+generated: "2026-10-21T15:36:04.273544168Z"
