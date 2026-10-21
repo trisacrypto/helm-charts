@@ -1,0 +1,22 @@
+{{- if .Values.backups.enabled }}
+{{- range $k, $v := until ((int .Values.replicaCount) | default 1) }}
+{{- if ne $v 0 }}
+---
+{{- end }}
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: {{ include "daybreak.fullname" $ }}-snapshot
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "daybreak.labels" $ | nindent 4 }}
+spec:
+  persistentVolumeClaim:
+    claimName: {{ include "daybreak.fullname" $ }}-database-{{- include "daybreak.fullname" $ }}-{{ $v }}
+  schedule:
+    {{- toYaml $.Values.backups.schedule | nindent 2 }}
+  template:
+    spec:
+      volumeSnapshotClassName: {{ $.Values.backups.volumeSnapshotClassName }}
+{{- end }}
+{{- end }}

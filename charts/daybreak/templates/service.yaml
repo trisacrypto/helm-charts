@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "daybreak.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "daybreak.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "daybreak.selectorLabels" . | nindent 4 }}

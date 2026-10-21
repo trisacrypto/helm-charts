@@ -1,0 +1,14 @@
+Thank you for installing {{ .Chart.Name | title }} and facilitating Travel Rule compliance.
+
+You can reach your application via the following endpoints:
+
+  {{ .Values.daybreak.origin }}
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+Labels added to all elements of the release are as follows:
+
+{{ include "daybreak.labels" . | nindent 4 }}

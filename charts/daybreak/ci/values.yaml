@@ -1,0 +1,11 @@
+daybreak:
+  origin: https://daybreaks.directory
+
+regioninfo:
+  enabled: true
+
+ingress:
+  enabled: true
+
+backups:
+  enabled: true

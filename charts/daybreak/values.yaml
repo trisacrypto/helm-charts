@@ -1,0 +1,164 @@
+# Default values for deploying Daybreak.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Name overrides: by default the name will be release-daybreak and it is
+# recommended that the release name be the name of the environment. If you would like to
+# override the name, you can do so below; if you would like to override the -daybreak
+# suffix, then use the fullnameOverride.
+nameOverride: ""
+fullnameOverride: ""
+
+# It is not recommended to increase the replicaCount beyond 1 at this time.
+# NOTE: this chart does not allow for autoscaling at this time.
+replicaCount: 1
+
+image:
+  repository: trisa/daybreak
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+
+# The following is the configuration for the Daybreak service.
+# These values are mounted into each pod as an environment variable.
+daybreak:
+  # Required: user must populate this value!
+  # Set to the full URL of the web UI which should match the ingress route and is used
+  # for the allowed origins setting in CORS and the audience value for authentication.
+  # Should be a full URLs with scheme (e.g. https://) and no trailing slashes.
+  origin: ""
+
+  # Maintenance mode is used to start Daybreak without connecting to external
+  # services and can be used to run the pod without starting the service for debugging.
+  maintenance: false
+
+  # Specify a global mode for all microservices (release, debug, testing)
+  # Only specify debug mode if you know what you're doing.
+  mode: release
+
+  # Specify a log level for for the daybreak service.
+  # Verbosity of logging: trace, debug, info, warn, error, fatal, panic
+  logLevel: info
+  consoleLog: false
+
+  # The DSN to connect to the database. If using a statefulset, this should be set to
+  # a sqlite3 volume mount point, if using an external database, this should be
+  # configured to allow connection to the database server.
+  databaseURL:
+    value: sqlite3:////data/db/daybreak.db
+    secretKeyRef: null
+
+# Because TRISA is a globally distributed system, region deployment information is
+# useful information on the node. This information can be provided via config map or
+# manually specified in the values.yaml -- behavior is not defined for when both are
+# specified.
+regioninfo:
+  # If enabled is true, will load the region info into the environment from the
+  # specified config map
+  enabled: false
+  configMap: ""
+
+  # If install is true, the config map will be installed using the specified info
+  # values. Note that if a config with the name already exists, it won't be overwritten.
+  install: false
+  info:
+    id: ""
+    name: ""
+    country: ""
+    cloud: ""
+    cluster: ""
+  annotations: {}
+
+# Additional pod spec configuration
+pod:
+  annotations: {}
+  labels: {}
+  securityContext: {}
+  resources: {}
+
+# Additional container spec configuration
+containers:
+  securityContext: {}
+
+# Define PVCs that are allocated per pod on the stateful set (e.g. daybreak data)
+storage:
+  # The database data spec will be included in volume claim templates.
+  database:
+    mountPath: /data/db
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 16Gi
+
+# Define the ports to bind the daybrea service on. Note that this will also influence
+# the configuration of the node to bind to these ports as well so they only have to be
+# defined once in this values file rather than multiple times.
+service:
+  type: ClusterIP
+  port: 8000
+
+# Configuration for the Daybreak ingress.
+# The hostname comes from the origin configuration above.
+# Currently setup for Traefik ingress controller.
+ingress:
+  enabled: false
+  apiVersion: traefik.io/v1alpha1
+  className: IngressRoute
+  annotations: {}
+  entryPoints:
+    - websecure
+  tls: {}
+
+# Specify the backup schedule for the node data PVC.
+# Requires Fairwinds Gemini to be installed in the cluster: https://github.com/FairwindsOps/gemini
+backups:
+  enabled: false
+  # This snapshot class must be created during Fairwinds Gemini installation
+  volumeSnapshotClassName: csi-snapshotclass
+  # This backup schedule uses Fairwinds Gemini notation
+  schedule:
+    - every: 2 hours
+      keep: 12
+
+# The liveness probe requires the web service to be enabled and running.
+livenessProbe:
+  httpGet:
+    path: /livez
+    port: 8000
+    httpHeaders:
+    - name: X-Kubernetes-Probe
+      value: liveness
+  initialDelaySeconds: 2
+  periodSeconds: 10
+
+# The readiness probe requires the web service to be enabled and running.
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 8000
+    httpHeaders:
+    - name: X-Kubernetes-Probe
+      value: readiness
+  initialDelaySeconds: 2
+  periodSeconds: 10
+
+# Pod requested resources and limits.
+resources: {}
+#  requests:
+#    memory: "32Mi"
+#    cpu: "100m"
+#  limits:
+#    memory: "512Mi"
+#    cpu: "500m"
+
+# Node selector for the pods.
+nodeSelector: {}
+
+# Tolerations for the pods.
+tolerations: []
+
+# Affinity rules for the pods.
+affinity: {}
