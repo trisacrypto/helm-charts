@@ -8,6 +8,7 @@ metadata:
 spec:
   serviceName: {{ include "daybreak.fullname" .}}
   replicas: {{ .Values.replicaCount }}
+  minReadySeconds: {{ default 0 .Values.minReadySeconds }}
   selector:
     matchLabels:
       {{- include "daybreak.selectorLabels" . | nindent 6 }}
@@ -23,6 +24,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      terminationGracePeriodSeconds: {{ default 8 .Values.terminationGracePeriodSeconds }}
       {{- with .Values.pod.securityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -69,8 +71,8 @@ spec:
         affinity:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-    volumeClaimTemplates:
-    - metadata:
-        name: {{ include "daybreak.fullname" . }}-database
-      spec:
-        {{- toYaml .Values.storage.database.spec | nindent 8 }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ include "daybreak.fullname" . }}-database
+    spec:
+      {{- toYaml .Values.storage.database.spec | nindent 8 }}
