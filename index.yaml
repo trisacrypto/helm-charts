@@ -3,6 +3,28 @@ entries:
   daybreak:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2026-10-23T14:10:19.221735147Z"
+    dependencies:
+    - name: regioninfo
+      repository: file://../regioninfo
+      version: ~1.1
+    description: Management system for counterparty email addresses used for the Sunrise
+      protocol.
+    digest: 19b04c5f81d095c40c04d7c1c84458daf365c646b3d33a58186e58bbf0537589
+    home: https://daybreak.travelrule.directory
+    icon: https://daybreak.travelrule.directory/favicon.png
+    maintainers:
+    - email: support@rotational.io
+      name: Rotational Labs
+    name: daybreak
+    sources:
+    - https://github.com/trisacrypto/daybreak
+    type: application
+    urls:
+    - https://github.com/trisacrypto/helm-charts/releases/download/daybreak-0.1.2/daybreak-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2026-10-21T15:53:35.058176097Z"
     dependencies:
     - name: regioninfo
@@ -1089,4 +1111,4 @@ entries:
     urls:
     - https://github.com/trisacrypto/helm-charts/releases/download/regioninfo-1.1.0/regioninfo-1.1.0.tgz
     version: 1.1.0
-generated: "2026-10-21T15:53:35.486269647Z"
+generated: "2026-10-23T14:10:19.221777621Z"
