@@ -15,14 +15,15 @@ env:
   - name: DAYBREAK_ALLOW_ORIGINS
     value: {{ .Values.daybreak.origin | quote }}
   - name: DAYBREAK_DATABASE_URL
-    {{- if .Values.daybreak.databaseURL.secretKeyRef }}
-    valueFrom:
-      secretKeyRef:
-        name: {{ .Values.daybreak.databaseURL.secretKeyRef.name }}
-        key: {{ .Values.daybreak.databaseURL.secretKeyRef.key }}
-    {{- else }}
-    value: {{ .Values.daybreak.databaseURL.value | quote }}
-    {{- end }}
+    {{- include "daybreak.secretValue" .Values.daybreak.databaseURL | nindent 4 }}
+  - name: GOOGLE_CLIENT_ID
+    {{- include "daybreak.secretValue" .Values.daybreak.google.clientID | nindent 4 }}
+  - name: GOOGLE_CLIENT_SECRET
+    {{- include "daybreak.secretValue" .Values.daybreak.google.clientSecret | nindent 4 }}
+  - name: DAYBREAK_AUTH_ALLOWED_DOMAINS
+    value: {{ include "comma" .Values.daybreak.auth.allowedDomains | quote }}
+  - name: DAYBREAK_AUTH_SESSION_KEY
+    {{- include "daybreak.secretValue" .Values.daybreak.auth.sessionKey | nindent 4 }}
   {{- if .Values.regioninfo.enabled }}
   {{- include "regioninfo.environment" . | nindent 2 }}
   {{- end }}

@@ -1,6 +1,26 @@
 daybreak:
   origin: https://daybreaks.directory
 
+  google:
+    clientID:
+      secretKeyRef:
+        name: "daybreak"
+        key: "googleClientID"
+    clientSecret:
+      secretKeyRef:
+        name: "daybreak"
+        key: "googleClientSecret"
+  auth:
+    allowedDomains:
+    - "travelrule.io"
+    - "rotational.io"
+    - "rotational.ai"
+
+    sessionKey:
+      secretKeyRef:
+        name: "daybreak"
+        key: "sessionKey"
+
 regioninfo:
   enabled: true
 

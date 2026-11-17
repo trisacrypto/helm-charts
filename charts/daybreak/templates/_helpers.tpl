@@ -69,3 +69,25 @@ Volume mounts for the sqlite3 database
 {{- define "daybreak.hostname" -}}
 {{ trimSuffix "/" (trimPrefix "https://" (trimPrefix "http://" .Values.daybreak.origin)) }}
 {{- end -}}
+
+{{/*
+Get the value of a secret key reference
+*/}}
+{{- define "daybreak.secretValue" -}}
+{{- if .secretKeyRef -}}
+valueFrom:
+  secretKeyRef:
+    name: {{ .secretKeyRef.name }}
+    key: {{ .secretKeyRef.key }}
+{{- else -}}
+value: {{ .value | quote }}
+{{- end }}
+{{- end }}
+
+{{/*
+Convert an array to a comma-separated list.
+Usage: {{ include "daybreak.commaList" .Values.someArray }}
+*/}}
+{{- define "comma" -}}
+{{- join "," . -}}
+{{- end }}

@@ -50,6 +50,23 @@ daybreak:
     value: sqlite3:////data/db/daybreak.db
     secretKeyRef: null
 
+  google:
+    clientID:
+      value: ""
+      secretKeyRef: null
+    clientSecret:
+      value: ""
+      secretKeyRef: null
+
+  auth:
+    allowedDomains:
+    - "travelrule.io"
+    - "rotational.io"
+
+    sessionKey:
+      value: ""
+      secretKeyRef: null
+
 # The minimum number of seconds for which a newly started pod should be ready
 minReadySeconds: 8
 
